@@ -36,8 +36,6 @@ public abstract class Simulation {
 			psi1 = value;
 		} else if (param.equals("omega1")) {
 			omega1 = value;
-		} else if (param.equals("energy1")) {
-			energy1 = value;
 		}
 	}
 	

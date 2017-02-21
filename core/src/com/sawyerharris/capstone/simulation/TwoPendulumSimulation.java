@@ -18,8 +18,6 @@ public abstract class TwoPendulumSimulation extends Simulation {
 			psi2 = value;
 		} else if (param.equals("omega2")) {
 			omega2 = value;
-		} else if (param.equals("energy2")) {
-			energy2 = value;
 		}
 	}
 
