@@ -17,17 +17,20 @@ public class PendulumApplication extends ApplicationAdapter {
 	@Override
 	public void create() {
 		// Create list of demos
-		demos = new Demo[1];
+		demos = new Demo[6];
 		demos[0] = new SimpleDemo();
 		
+		// Create GUI
 		stage = new Stage();
-		simulator = new Simulator();
+		Gdx.input.setInputProcessor(stage);
 		
+		// Default demo
 		demo = demos[0];
 		
+		// Start simulating
+		simulator = new Simulator();
 		simulator.setSimulation(demo.getSimulation());
-		
-		new Thread(simulator).start();
+		simulator.setRunning(true);
 	}
 
 	@Override

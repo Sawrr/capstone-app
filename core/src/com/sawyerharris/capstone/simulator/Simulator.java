@@ -24,7 +24,6 @@ public class Simulator implements Runnable {
 		while (running.get()) {
 			// Update times
 			long currTime = TimeUtils.millis();
-			long elapsedTime = TimeUtils.timeSinceMillis(prevTime);
 			prevTime = currTime;
 			
 			simulation.update(DELTA_TIME);
@@ -46,7 +45,7 @@ public class Simulator implements Runnable {
 	
 	public void setRunning(boolean run) {
 		if (run) {
-			run();
+			new Thread(this).start();
 		} else {
 			running.set(false);
 		}
