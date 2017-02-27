@@ -19,6 +19,8 @@ import com.sawyerharris.capstone.util.SkinManager;
 public class PendulumApplication extends ApplicationAdapter {
 	private static final int NUM_DEMOS = 6;
 	
+	private static PendulumApplication instance;
+	
 	private Stage stage;
 	private Simulator simulator;
 	private Demo demo;
@@ -29,8 +31,14 @@ public class PendulumApplication extends ApplicationAdapter {
 	private VerticalGroup vGroup;
 	private HorizontalGroup hGroup;
 	
+	public static PendulumApplication getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public void create() {
+		instance = this;
+		
 		skin = SkinManager.getSkin();
 		
 		// Create list of demos
@@ -121,7 +129,7 @@ public class PendulumApplication extends ApplicationAdapter {
 				
 		vGroup.addActor(hGroup);
 		stage.addActor(vGroup);
-		stage.setDebugAll(true);
+		//stage.setDebugAll(true);
 		
 		simulator = new Simulator();
 		
@@ -131,6 +139,14 @@ public class PendulumApplication extends ApplicationAdapter {
 		new Thread(simulator).start();
 	}
 
+	public void pauseSimulation() {
+		simulator.setRunning(false);
+	}
+	
+	public void resumeSimulation() {
+		simulator.setRunning(true);
+	}
+	
 	public void setDemo(Demo demo) {
 		this.demo = demo;
 		
@@ -152,5 +168,9 @@ public class PendulumApplication extends ApplicationAdapter {
 		demo.update();
 		stage.draw();
 		//System.out.println(demo.getSimulation().getPsi1() + " " + demo.getSimulation().getOmega1() + " " + demo.getSimulation().getEnergy1());
+	}
+
+	public boolean isSimulationRunning() {
+		return simulator.isRunning();
 	}
 }
