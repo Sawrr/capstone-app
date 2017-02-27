@@ -21,7 +21,18 @@ public class Simulator implements Runnable {
 		running.set(true);
 		
 		long prevTime = TimeUtils.millis();
-		while (running.get()) {
+		while (true) {
+			// If paused, wait until unpaused
+			while (!running.get()) {
+				synchronized(this) {
+					try {
+						wait();
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+			
 			// Update times
 			long currTime = TimeUtils.millis();
 			prevTime = currTime;
@@ -43,15 +54,17 @@ public class Simulator implements Runnable {
 		return running.get();
 	}
 	
-	public void setRunning(boolean run) {
+	public synchronized void setRunning(boolean run) {
 		if (run) {
-			new Thread(this).start();
-		} else {
+			running.set(true);
+			notifyAll();
+		} else if (!run) {
 			running.set(false);
 		}
 	}
 	
 	public void setSimulation(Simulation sim) {
+		running.set(false);
 		this.simulation = sim;
 	}
 }

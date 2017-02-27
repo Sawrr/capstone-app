@@ -1,24 +1,33 @@
 package com.sawyerharris.capstone.demo;
 
-import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.sawyerharris.capstone.simulation.Simulation;
+import com.sawyerharris.capstone.util.SkinManager;
 
 public abstract class Demo {
 	protected Simulation simulation;
-	protected WidgetGroup interfaceWindow;
-	protected WidgetGroup simulationWindow;
-	protected WidgetGroup plotWindow;
+	protected Group interfaceWindow;
+	protected Group simulationWindow;
+	protected Group plotWindow;
+	
+	protected Skin skin = SkinManager.getSkin();
 	
 	public Simulation getSimulation() {
 		return simulation;
 	}
-	public WidgetGroup getInterfaceWindow() {
+	
+	public Group getInterfaceWindow() {
 		return interfaceWindow;
 	}
-	public WidgetGroup getSimulationWindow() {
+	
+	public Group getSimulationWindow() {
 		return simulationWindow;
 	}
-	public WidgetGroup getPlotWindow() {
+	
+	public Group getPlotWindow() {
 		return plotWindow;
 	}
+	
+	public abstract void update();
 }
