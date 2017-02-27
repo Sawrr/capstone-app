@@ -129,7 +129,6 @@ public class PendulumApplication extends ApplicationAdapter {
 				
 		vGroup.addActor(hGroup);
 		stage.addActor(vGroup);
-		//stage.setDebugAll(true);
 		
 		simulator = new Simulator();
 		
@@ -137,6 +136,9 @@ public class PendulumApplication extends ApplicationAdapter {
 		setDemo(demos[0]);
 		
 		new Thread(simulator).start();
+		
+		
+		//stage.setDebugAll(true);
 	}
 
 	public void pauseSimulation() {
