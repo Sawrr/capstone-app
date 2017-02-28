@@ -157,7 +157,7 @@ public class PendulumApplication extends ApplicationAdapter {
 		simulator.setRunning(true);
 		
 		hGroup.clearChildren();
-		//hGroup.addActor(demo.getPlotWindow());
+		hGroup.addActor(demo.getPlotWindow());
 		hGroup.addActor(demo.getSimulationWindow());
 		hGroup.addActor(demo.getInterfaceWindow());	
 	}
