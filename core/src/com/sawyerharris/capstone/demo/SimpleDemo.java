@@ -89,7 +89,7 @@ public class SimpleDemo extends Demo {
 		table.row();
 		
 		// Length parameter
-		lengthSlider = new Slider(1, 200, 1f, false, skin);
+		lengthSlider = new Slider(50, 200, 1f, false, skin);
 		lengthSlider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -129,8 +129,8 @@ public class SimpleDemo extends Demo {
 		interfaceWindow.addActor(table);
 		
 		plotWindow = new Group();
-		plotWindow.setBounds(50, 50, 400, 600);
-		plot = new Plot();
+		plotWindow.setBounds(50, 50, 600, 600);
+		plot = new Plot((float) Math.PI * 6, 0, true);
 		plotWindow.addActor(plot);
 	}
 	
@@ -139,6 +139,7 @@ public class SimpleDemo extends Demo {
 			pendulum.angle = simulation.getPsi1() - Math.PI / 2;
 		}
 		System.out.println(simulation.getEnergy1());
-		plot.enqueue((int) (100 * (simulation.getPsi1() % (2*Math.PI) )));
+		plot.addData1((float) (simulation.getPsi1() % (2*Math.PI)));
+		plot.addData2((float) simulation.getOmega1());
 	}
 }
