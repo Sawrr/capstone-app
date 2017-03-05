@@ -17,6 +17,12 @@ import com.sawyerharris.capstone.simulation.SimplePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
 public class SimpleDemo extends Demo {
+	private float defGravity = 9.8f;
+	private float defLength1 = 1;
+	private float defPsi1 = 1;
+	private float defOmega1 = 0;
+	private float defMass1 = 1;
+	
 	private Pendulum pendulum;
 	private Slider gravitySlider;
 	private Label gravityLabel;
@@ -35,12 +41,16 @@ public class SimpleDemo extends Demo {
 	private TextButton energyButton;
 	
 	public SimpleDemo() {
+		////////////////
+		// SIMULATION //
+		////////////////
+		
 		simulation = new SimplePendulumSimulation();
-		simulation.setParameter("gravity", 9.8);
-		simulation.setParameter("length1", 1);
-		simulation.setParameter("psi1", 1);
-		simulation.setParameter("omega1", 0);
-		simulation.setParameter("mass1", 1);
+		simulation.setParameter("gravity", defGravity);
+		simulation.setParameter("length1", defLength1);
+		simulation.setParameter("psi1", defPsi1);
+		simulation.setParameter("omega1", defOmega1);
+		simulation.setParameter("mass1", defMass1);
 		
 		simulationWindow = new Group();
 		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
@@ -67,6 +77,10 @@ public class SimpleDemo extends Demo {
 			}
 		});
 		simulationWindow.addActor(pendulum);
+
+		///////////////
+		// INTERFACE //
+		///////////////
 		
 		interfaceWindow = new Group();
 		interfaceTable = new Table();
@@ -74,55 +88,58 @@ public class SimpleDemo extends Demo {
 		
 		// Gravity parameter
 		gravitySlider = new Slider(0, 100, .1f, false, skin);
+		gravitySlider.setValue(defGravity);
 		gravitySlider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				//PendulumApplication.getInstance().pauseSimulation();
 				float value = ((Slider) actor).getValue();
 				simulation.setParameter("gravity", value);
 				gravityValue.setText(String.format("%.1f", value));
 			}
 		});
 		gravityLabel = new Label("Gravity", skin);
-		gravityValue = new Label("", skin);
+		gravityValue = new Label(String.format("%.1f", defGravity), skin);
+
 		interfaceTable.add(gravityLabel).spaceRight(10);
 		interfaceTable.add(gravitySlider);
 		interfaceTable.add(gravityValue).expandX();
 		interfaceTable.row();
 		
 		// Length parameter
-		lengthSlider = new Slider(50, 200, 1f, false, skin);
+		lengthSlider = new Slider(0.1f, 5, 0.1f, false, skin);
+		lengthSlider.setValue(defLength1);
 		lengthSlider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				//PendulumApplication.getInstance().pauseSimulation();
 				float value = ((Slider) actor).getValue();
-				simulation.setParameter("length1", value/100);
-				pendulum.length = value;
-				lengthValue.setText(String.format("%.0f", value));
+				simulation.setParameter("length1", value);
+				pendulum.length = 50 + value * 50;
+				lengthValue.setText(String.format("%.1f", value));
 			}
 		});
 		lengthLabel = new Label("Length", skin);
-		lengthValue = new Label("", skin);
+		lengthValue = new Label(String.format("%.1f", defLength1), skin);
+		
 		interfaceTable.add(lengthLabel).spaceRight(10);
 		interfaceTable.add(lengthSlider);
 		interfaceTable.add(lengthValue).expandX();
 		interfaceTable.row();
 		
 		// Mass parameter
-		massSlider = new Slider(1, 100, 1f, false, skin);
+		massSlider = new Slider(1, 20, 1f, false, skin);
+		massSlider.setValue(defMass1);
 		massSlider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				//PendulumApplication.getInstance().pauseSimulation();
 				float value = ((Slider) actor).getValue();
 				simulation.setParameter("mass1", value);
 				massValue.setText(String.format("%.0f", value));
-				pendulum.radius = 10 + value / 5;
+				pendulum.radius = 10 + value;
 			}
 		});
 		massLabel = new Label("Mass", skin);
-		massValue = new Label("", skin);
+		massValue = new Label(String.format("%.0f", defMass1), skin);	
+		
 		interfaceTable.add(massLabel).spaceRight(10);
 		interfaceTable.add(massSlider);
 		interfaceTable.add(massValue).expandX();
@@ -131,10 +148,14 @@ public class SimpleDemo extends Demo {
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);
 		
+		//////////////
+		// PLOTTING //
+		//////////////
+		
 		plotWindow = new Group();
 		plotWindow.setBounds(0, 0, Demo.PLOT_WIDTH, Demo.PLOT_WIDTH);
 		angularPlot = new Plot((float) Math.PI * 6, 0, true);
-		energyPlot = new Plot(10000, 0, false);
+		energyPlot = new Plot(3000, 0, false);
 		
 		plotTable = new Table();
 		plotTable.setBounds(0, Plot.PLOT_SIZE, Plot.PLOT_SIZE, 50);
@@ -168,7 +189,6 @@ public class SimpleDemo extends Demo {
 		if (PendulumApplication.getInstance().isSimulationRunning()) {
 			pendulum.angle = simulation.getPsi1() - Math.PI / 2;
 		}
-		System.out.println(simulation.getEnergy1());
 		angularPlot.addData1((float) (simulation.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) simulation.getOmega1());
 		energyPlot.addData1((float) simulation.getEnergy1());
