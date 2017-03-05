@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.sawyerharris.capstone.view.ShapeActor;
 
 public class Plot extends ShapeActor {
+	public static final float PLOT_SIZE = 500;
 	private static final int NUM_POINTS = 300;
-	private static final float PLOT_WIDTH = 500;
 	private float[] vertices1;
 	private float[] data1;
 	private float[] vertices2;
@@ -28,11 +28,11 @@ public class Plot extends ShapeActor {
 		vertices2 = new float[2 * NUM_POINTS];
 		data2 = new float[NUM_POINTS];
 		for (int i = 0; i < NUM_POINTS; i++) {
-			vertices1[2 * i] = i * PLOT_WIDTH / NUM_POINTS;
-			vertices2[2 * i] = i * PLOT_WIDTH / NUM_POINTS;
+			vertices1[2 * i] = i * PLOT_SIZE / NUM_POINTS;
+			vertices2[2 * i] = i * PLOT_SIZE / NUM_POINTS;
 		}
 		
-		setBounds(0, 0, PLOT_WIDTH, PLOT_WIDTH);
+		setBounds(0, 0, PLOT_SIZE, PLOT_SIZE);
 		
 		addListener(new ActorGestureListener() {
 			@Override
@@ -67,15 +67,15 @@ public class Plot extends ShapeActor {
 	@Override
 	public void drawShapes() {
 		for (int i = 0; i < NUM_POINTS; i++) {
-			vertices1[2*i + 1] = data1[i] / scale * PLOT_WIDTH + offset + PLOT_WIDTH/2;
-			vertices2[2*i + 1] = data2[i] / scale * PLOT_WIDTH + offset + PLOT_WIDTH/2;
+			vertices1[2*i + 1] = data1[i] / scale * PLOT_SIZE + offset + PLOT_SIZE/2;
+			vertices2[2*i + 1] = data2[i] / scale * PLOT_SIZE + offset + PLOT_SIZE/2;
 		}
 		
 		clipBegin();
 		renderer.begin(ShapeType.Line);
 		
 		renderer.setColor(Color.BLACK);
-		float[] borders = {1, 1, PLOT_WIDTH, 1, PLOT_WIDTH, PLOT_WIDTH, 1, PLOT_WIDTH};
+		float[] borders = {1, 1, PLOT_SIZE, 1, PLOT_SIZE, PLOT_SIZE, 1, PLOT_SIZE};
 		renderer.polygon(borders);
 		
 		renderer.setColor(Color.RED);

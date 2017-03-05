@@ -6,6 +6,10 @@ import com.sawyerharris.capstone.simulation.Simulation;
 import com.sawyerharris.capstone.util.SkinManager;
 
 public abstract class Demo {
+	public static final float SIMULATION_WIDTH = 600;
+	public static final float INTERFACE_WIDTH = 300;
+	public static final float PLOT_WIDTH = 600;
+	
 	protected Simulation simulation;
 	protected Group interfaceWindow;
 	protected Group simulationWindow;

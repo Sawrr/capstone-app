@@ -20,7 +20,7 @@ public class SimplePendulumSimulation extends Simulation {
 		omega1 = (omegaa + 2 * omegab + omegac + omegad / 2) / 3 - omega1 / 2;
 		psi1 = (psia + 2 * psib + psic + psid / 2) / 3 - psi1 / 2;
 		
-		energy1 = -mass1 * gravity * Math.cos(psi1) + mass1 * length1 * length1 / 2 * omega1 * omega1;
+		energy1 = -mass1 * gravity * length1 * Math.cos(psi1) + mass1 * length1 * length1 / 2 * omega1 * omega1;
 	}
 	
 	private double omegadot(double psi) {
