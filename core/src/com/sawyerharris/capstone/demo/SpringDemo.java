@@ -17,12 +17,14 @@ import com.sawyerharris.capstone.simulation.SpringPendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
 public class SpringDemo extends Demo {
+	private static final float lengthScale = 50f;
+	
 	private float defGravity = 9.8f;
-	private float defLength1 = 1;
-	private float defPsi1 = 0.5f;
+	private float defLength1 = 2;
+	private float defPsi1 = 0.3f;
 	private float defOmega1 = 0;
 	private float defMass1 = 1;
-	private float defLength2 = 1;
+	private float defLength2 = 2;
 	private float defPsi2 = 0;
 	private float defOmega2 = 0;
 	private float defMass2 = 1;
@@ -70,7 +72,7 @@ public class SpringDemo extends Demo {
 		simulationWindow = new Group();
 		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
-		pendulum1 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2 - 100 * defSpringSeparation/2, Demo.SIMULATION_WIDTH/2), 0, 100, 20);
+		pendulum1 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2 - lengthScale * defSpringSeparation/2, Demo.SIMULATION_WIDTH/2), 0, defLength1  * lengthScale, 20);
 		pendulum1.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -92,7 +94,7 @@ public class SpringDemo extends Demo {
 			}
 		});
 		
-		pendulum2 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2 + 100 * defSpringSeparation/2, Demo.SIMULATION_WIDTH/2), 0, 100, 20);
+		pendulum2 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2 + lengthScale * defSpringSeparation/2, Demo.SIMULATION_WIDTH/2), 0, defLength2  * lengthScale, 20);
 		pendulum2.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -102,7 +104,7 @@ public class SpringDemo extends Demo {
 				dy = y - Pendulum.TOUCH_RADIUS + (float) pendulum2.getLengthY();
 				double angle = Math.atan2(dx, -dy);
 				simulation.setParameter("psi2", angle);
-				simulation.setParameter("omega1", 0);
+				simulation.setParameter("omega2", 0);
 				pendulum2.angle = angle - Math.PI/2;
 			}
 			
@@ -145,14 +147,14 @@ public class SpringDemo extends Demo {
 		interfaceTable.row();
 		
 		// Length parameter
-		lengthSlider = new Slider(0.1f, 5, 0.1f, false, skin);
+		lengthSlider = new Slider(1f, 5, 0.1f, false, skin);
 		lengthSlider.setValue(defLength1);
 		lengthSlider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				float value = ((Slider) actor).getValue();
 				simulation.setParameter("length1", value);
-				pendulum1.length = 50 + value * 50;
+				pendulum1.length = value * lengthScale;
 				lengthValue.setText(String.format("%.1f", value));
 			}
 		});
@@ -194,7 +196,7 @@ public class SpringDemo extends Demo {
 		plotWindow = new Group();
 		plotWindow.setBounds(0, 0, Demo.PLOT_WIDTH, Demo.PLOT_WIDTH);
 		angularPlot = new Plot((float) Math.PI * 6, 0, true);
-		energyPlot = new Plot(3000, 0, false);
+		energyPlot = new Plot(20, 0, true);
 		
 		plotTable = new Table();
 		plotTable.setBounds(0, Plot.PLOT_SIZE, Plot.PLOT_SIZE, 50);
@@ -225,12 +227,15 @@ public class SpringDemo extends Demo {
 	}
 	
 	public void update() {
+		SpringPendulumSimulation sim = (SpringPendulumSimulation) simulation;
+		
 		if (PendulumApplication.getInstance().isSimulationRunning()) {
-			pendulum1.angle = simulation.getPsi1() - Math.PI / 2;
-			pendulum2.angle = ((SpringPendulumSimulation) simulation).getPsi2() - Math.PI / 2;
+			pendulum1.angle = sim.getPsi1() - Math.PI / 2;
+			pendulum2.angle = sim.getPsi2() - Math.PI / 2;
 		}
-		angularPlot.addData1((float) (simulation.getPsi1() % (2*Math.PI)));
-		angularPlot.addData2((float) simulation.getOmega1());
-		energyPlot.addData1((float) simulation.getEnergy1());
+		angularPlot.addData1((float) (sim.getPsi1() % (2*Math.PI)));
+		angularPlot.addData2((float) (sim.getPsi2() % (2*Math.PI)));
+		energyPlot.addData1((float) sim.getEnergy1());
+		energyPlot.addData2((float) sim.getEnergy2());
 	}
 }

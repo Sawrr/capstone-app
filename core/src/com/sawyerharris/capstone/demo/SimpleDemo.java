@@ -17,6 +17,8 @@ import com.sawyerharris.capstone.simulation.SimplePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
 public class SimpleDemo extends Demo {
+	private final static float lengthScale = 50f;
+	
 	private float defGravity = 9.8f;
 	private float defLength1 = 1;
 	private float defPsi1 = 1;
@@ -55,7 +57,7 @@ public class SimpleDemo extends Demo {
 		simulationWindow = new Group();
 		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
-		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, 100, 20);
+		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength1 * lengthScale, 20);
 		pendulum.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -106,14 +108,14 @@ public class SimpleDemo extends Demo {
 		interfaceTable.row();
 		
 		// Length parameter
-		lengthSlider = new Slider(0.1f, 5, 0.1f, false, skin);
+		lengthSlider = new Slider(1f, 5, 0.1f, false, skin);
 		lengthSlider.setValue(defLength1);
 		lengthSlider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				float value = ((Slider) actor).getValue();
 				simulation.setParameter("length1", value);
-				pendulum.length = 50 + value * 50;
+				pendulum.length = value * lengthScale;
 				lengthValue.setText(String.format("%.1f", value));
 			}
 		});
