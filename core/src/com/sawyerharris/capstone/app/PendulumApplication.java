@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sawyerharris.capstone.demo.Demo;
-import com.sawyerharris.capstone.demo.ParametricDemo;
+import com.sawyerharris.capstone.demo.DoubleDemo;
+import com.sawyerharris.capstone.demo.VerticalDemo;
 import com.sawyerharris.capstone.demo.SimpleDemo;
 import com.sawyerharris.capstone.demo.SpringDemo;
 import com.sawyerharris.capstone.simulator.Simulator;
@@ -47,7 +48,8 @@ public class PendulumApplication extends ApplicationAdapter {
 		demos = new Demo[NUM_DEMOS];
 		demos[0] = new SimpleDemo();
 		demos[1] = new SpringDemo();
-		demos[3] = new ParametricDemo();
+		demos[2] = new DoubleDemo();
+		demos[3] = new VerticalDemo();
 		
 		// Create GUI
 		stage = new Stage();
@@ -80,11 +82,11 @@ public class PendulumApplication extends ApplicationAdapter {
 		demoButtons[2].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("clicked hi");
+				setDemo(demos[2]);
 			}
 		});
 		
-		demoButtons[3] = new TextButton("Parametric Resonance", skin);
+		demoButtons[3] = new TextButton("Vertical Oscillations", skin);
 		demoButtons[3].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -92,16 +94,8 @@ public class PendulumApplication extends ApplicationAdapter {
 			}
 		});
 		
-		demoButtons[4] = new TextButton("Kapitza Pendulum", skin);
+		demoButtons[4] = new TextButton("Pendulum on a Cart", skin);
 		demoButtons[4].addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("clicked hi");
-			}
-		});
-		
-		demoButtons[5] = new TextButton("Pendulum on a Cart", skin);
-		demoButtons[5].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println("clicked hi");
@@ -173,7 +167,6 @@ public class PendulumApplication extends ApplicationAdapter {
 		
 		demo.update();
 		stage.draw();
-		//System.out.println(demo.getSimulation().getPsi1() + " " + demo.getSimulation().getOmega1() + " " + demo.getSimulation().getEnergy1());
 	}
 
 	public boolean isSimulationRunning() {

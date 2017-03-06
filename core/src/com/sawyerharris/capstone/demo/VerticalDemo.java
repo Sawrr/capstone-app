@@ -16,7 +16,7 @@ import com.sawyerharris.capstone.plot.Plot;
 import com.sawyerharris.capstone.simulation.VerticalOscillationSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
-public class ParametricDemo extends Demo {
+public class VerticalDemo extends Demo {
 	private final static float LENGTH_SCALE = 50f;
 	private static final float MASS_SCALE = 2f;
 	private static final float MASS_BASE = 10f;
@@ -47,7 +47,7 @@ public class ParametricDemo extends Demo {
 	private TextButton angularButton;
 	private TextButton energyButton;
 	
-	public ParametricDemo() {
+	public VerticalDemo() {
 		////////////////
 		// SIMULATION //
 		////////////////
