@@ -15,6 +15,7 @@ import com.sawyerharris.capstone.app.PendulumApplication;
 import com.sawyerharris.capstone.plot.Plot;
 import com.sawyerharris.capstone.simulation.SpringPendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
+import com.sawyerharris.capstone.view.Spring;
 
 public class SpringDemo extends Demo {
 	private static final float lengthScale = 50f;
@@ -34,6 +35,8 @@ public class SpringDemo extends Demo {
 	
 	private Pendulum pendulum1;
 	private Pendulum pendulum2;
+	private Spring spring;
+	
 	private Slider gravitySlider;
 	private Label gravityLabel;
 	private Label gravityValue;
@@ -84,6 +87,7 @@ public class SpringDemo extends Demo {
 				simulation.setParameter("psi1", angle);
 				simulation.setParameter("omega1", 0);
 				pendulum1.angle = angle - Math.PI/2;
+				spring.endPoint1 = new Vector2( (float) (pendulum1.pivot.x + pendulum1.getLengthX()), (float) (pendulum1.pivot.y + pendulum1.getLengthY()));
 			}
 			
 			@Override
@@ -106,6 +110,7 @@ public class SpringDemo extends Demo {
 				simulation.setParameter("psi2", angle);
 				simulation.setParameter("omega2", 0);
 				pendulum2.angle = angle - Math.PI/2;
+				spring.endPoint2 = new Vector2( (float) (pendulum2.pivot.x + pendulum2.getLengthX()), (float) (pendulum2.pivot.y + pendulum2.getLengthY()));
 			}
 			
 			@Override
@@ -116,8 +121,11 @@ public class SpringDemo extends Demo {
 			}
 		});
 		
+		spring = new Spring(pendulum1.pivot, pendulum2.pivot);
+		
 		simulationWindow.addActor(pendulum1);
 		simulationWindow.addActor(pendulum2);
+		simulationWindow.addActor(spring);
 
 		///////////////
 		// INTERFACE //
@@ -232,6 +240,8 @@ public class SpringDemo extends Demo {
 		if (PendulumApplication.getInstance().isSimulationRunning()) {
 			pendulum1.angle = sim.getPsi1() - Math.PI / 2;
 			pendulum2.angle = sim.getPsi2() - Math.PI / 2;
+			spring.endPoint1 = new Vector2( (float) (pendulum1.pivot.x + pendulum1.getLengthX()), (float) (pendulum1.pivot.y + pendulum1.getLengthY()));
+			spring.endPoint2 = new Vector2( (float) (pendulum2.pivot.x + pendulum2.getLengthX()), (float) (pendulum2.pivot.y + pendulum2.getLengthY()));
 		}
 		angularPlot.addData1((float) (sim.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) (sim.getPsi2() % (2*Math.PI)));
