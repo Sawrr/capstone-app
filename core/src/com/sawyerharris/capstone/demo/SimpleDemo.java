@@ -17,7 +17,9 @@ import com.sawyerharris.capstone.simulation.SimplePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
 public class SimpleDemo extends Demo {
-	private final static float lengthScale = 50f;
+	private final static float LENGTH_SCALE = 50f;
+	private static final float MASS_SCALE = 2f;
+	private static final float MASS_BASE = 10f;
 	
 	private float defGravity = 9.8f;
 	private float defLength1 = 1;
@@ -57,7 +59,7 @@ public class SimpleDemo extends Demo {
 		simulationWindow = new Group();
 		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
-		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength1 * lengthScale, 20);
+		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength1 * LENGTH_SCALE, MASS_BASE + defMass1 * MASS_SCALE);
 		pendulum.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -115,7 +117,7 @@ public class SimpleDemo extends Demo {
 			public void changed(ChangeEvent event, Actor actor) {
 				float value = ((Slider) actor).getValue();
 				simulation.setParameter("length1", value);
-				pendulum.length = value * lengthScale;
+				pendulum.length = value * LENGTH_SCALE;
 				lengthValue.setText(String.format("%.1f", value));
 			}
 		});
@@ -128,7 +130,7 @@ public class SimpleDemo extends Demo {
 		interfaceTable.row();
 		
 		// Mass parameter
-		massSlider = new Slider(1, 20, 1f, false, skin);
+		massSlider = new Slider(1, 10, 1f, false, skin);
 		massSlider.setValue(defMass1);
 		massSlider.addListener(new ChangeListener() {
 			@Override
@@ -136,7 +138,7 @@ public class SimpleDemo extends Demo {
 				float value = ((Slider) actor).getValue();
 				simulation.setParameter("mass1", value);
 				massValue.setText(String.format("%.0f", value));
-				pendulum.radius = 10 + value;
+				pendulum.radius = MASS_BASE + value * MASS_SCALE;
 			}
 		});
 		massLabel = new Label("Mass", skin);

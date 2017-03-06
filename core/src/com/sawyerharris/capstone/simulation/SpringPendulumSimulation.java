@@ -26,8 +26,8 @@ public class SpringPendulumSimulation extends TwoPendulumSimulation {
 		double psi1c = psi1 + dt * omega1b;
 		double psi2c = psi2 + dt * omega2b;
 		
-		double omega1d = omega1 + dt * omega1dot(psi1c, psi1c);
-		double omega2d = omega2 + dt * omega2dot(psi2c, psi2c);
+		double omega1d = omega1 + dt * omega1dot(psi1c, psi2c);
+		double omega2d = omega2 + dt * omega2dot(psi1c, psi2c);
 		double psi1d = psi1 + dt * omega1c;
 		double psi2d = psi2 + dt * omega2c;
 		
