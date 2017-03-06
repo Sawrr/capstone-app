@@ -54,6 +54,9 @@ public class SpringDemo extends Demo {
 	private Slider mass2Slider;
 	private Label mass2Label;
 	private Label mass2Value;
+	private Slider springConstantSlider;
+	private Label springConstantLabel;
+	private Label springConstantValue;
 	private Plot angularPlot;
 	private Table interfaceTable;
 	private Table plotTable;
@@ -239,6 +242,25 @@ public class SpringDemo extends Demo {
 		interfaceTable.add(mass2Value).expandX();
 		interfaceTable.row();
 
+		// Spring constant parameter
+		springConstantSlider = new Slider(1, 10, 1f, false, skin);
+		springConstantSlider.setValue(defSpringConstant);
+		springConstantSlider.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				float value = ((Slider) actor).getValue();
+				simulation.setParameter("springConstant", value);
+				springConstantValue.setText(String.format("%.0f", value));
+			}
+		});
+		springConstantLabel = new Label("Spring Constant", skin);
+		springConstantValue = new Label(String.format("%.0f", defSpringConstant), skin);
+		
+		interfaceTable.add(springConstantLabel).spaceRight(10);
+		interfaceTable.add(springConstantSlider);
+		interfaceTable.add(springConstantValue).expandX();
+		interfaceTable.row();
+		
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);
 		
