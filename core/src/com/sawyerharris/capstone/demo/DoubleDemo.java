@@ -15,6 +15,7 @@ import com.sawyerharris.capstone.app.PendulumApplication;
 import com.sawyerharris.capstone.plot.Plot;
 import com.sawyerharris.capstone.simulation.DoublePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
+import com.sawyerharris.capstone.view.PendulumTrace;
 
 public class DoubleDemo extends Demo {
 	private static final float LENGTH_SCALE = 50f;
@@ -33,6 +34,7 @@ public class DoubleDemo extends Demo {
 	
 	private Pendulum pendulum1;
 	private Pendulum pendulum2;
+	private PendulumTrace trace;
 	
 	private Slider gravitySlider;
 	private Label gravityLabel;
@@ -90,6 +92,8 @@ public class DoubleDemo extends Demo {
 				
 				pendulum2.pivot.x = pendulum1.pivot.x + (float) pendulum1.getLengthX();
 				pendulum2.pivot.y = pendulum1.pivot.y + (float) pendulum1.getLengthY();
+				
+				trace.reset();
 			}
 			
 			@Override
@@ -112,6 +116,8 @@ public class DoubleDemo extends Demo {
 				simulation.setParameter("psi2", angle);
 				simulation.setParameter("omega2", 0);
 				pendulum2.angle = angle - Math.PI/2;
+				
+				trace.reset();
 			}
 			
 			@Override
@@ -122,8 +128,11 @@ public class DoubleDemo extends Demo {
 			}
 		});
 		
+		trace = new PendulumTrace();
+		
 		simulationWindow.addActor(pendulum1);
 		simulationWindow.addActor(pendulum2);
+		simulationWindow.addActor(trace);
 
 		///////////////
 		// INTERFACE //
@@ -278,6 +287,10 @@ public class DoubleDemo extends Demo {
 			
 			pendulum2.pivot.x = pendulum1.pivot.x + (float) pendulum1.getLengthX();
 			pendulum2.pivot.y = pendulum1.pivot.y + (float) pendulum1.getLengthY();
+			
+			float x = pendulum2.pivot.x + (float) pendulum2.getLengthX();
+			float y = pendulum2.pivot.y + (float) pendulum2.getLengthY();
+			trace.enqueue(x, y);
 		}
 		angularPlot.addData1((float) (sim.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) (sim.getPsi2() % (2*Math.PI)));

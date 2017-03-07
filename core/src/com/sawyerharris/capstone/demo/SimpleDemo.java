@@ -22,10 +22,10 @@ public class SimpleDemo extends Demo {
 	private static final float MASS_BASE = 10f;
 	
 	private float defGravity = 9.8f;
-	private float defLength1 = 1;
+	private float defLength1 = 3;
 	private float defPsi1 = 1;
 	private float defOmega1 = 0;
-	private float defMass1 = 1;
+	private float defMass1 = 5;
 	
 	private Pendulum pendulum;
 	private Slider gravitySlider;
