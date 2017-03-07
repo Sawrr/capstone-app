@@ -13,10 +13,8 @@ public class PendulumTrace extends ShapeActor {
 		size = 0;
 	}
 	
-	public void enqueue(float x, float y) {
+	public void addVertex(float x, float y) {
 		if (size + 2 >= CAPACITY) {
-			//capacity *= 3;
-			//vertices = Arrays.copyOf(vertices, capacity);
 			for (int i = 0; i < size - 3; i += 2) {
 				vertices[i] = vertices[i + 2];
 				vertices[i + 1] = vertices[i + 3];

@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sawyerharris.capstone.app.PendulumApplication;
-import com.sawyerharris.capstone.plot.Plot;
+import com.sawyerharris.capstone.plot.LinePlot;
 import com.sawyerharris.capstone.simulation.SpringPendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 import com.sawyerharris.capstone.view.Spring;
@@ -57,10 +57,10 @@ public class SpringDemo extends Demo {
 	private Slider springConstantSlider;
 	private Label springConstantLabel;
 	private Label springConstantValue;
-	private Plot angularPlot;
+	private LinePlot angularPlot;
 	private Table interfaceTable;
 	private Table plotTable;
-	private Plot energyPlot;
+	private LinePlot energyPlot;
 	private TextButton angularButton;
 	private TextButton energyButton;
 	
@@ -270,11 +270,11 @@ public class SpringDemo extends Demo {
 		
 		plotWindow = new Group();
 		plotWindow.setBounds(0, 0, Demo.PLOT_WIDTH, Demo.PLOT_WIDTH);
-		angularPlot = new Plot((float) Math.PI * 6, 0, true);
-		energyPlot = new Plot(20, 0, true);
+		angularPlot = new LinePlot((float) Math.PI * 6, 0, true);
+		energyPlot = new LinePlot(20, 0, true);
 		
 		plotTable = new Table();
-		plotTable.setBounds(0, Plot.PLOT_SIZE, Plot.PLOT_SIZE, 50);
+		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 50);
 		
 		angularButton = new TextButton("Angle + Angular velocity", skin);
 		angularButton.addListener(new ClickListener() {

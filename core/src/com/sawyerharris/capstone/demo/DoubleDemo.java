@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sawyerharris.capstone.app.PendulumApplication;
-import com.sawyerharris.capstone.plot.Plot;
+import com.sawyerharris.capstone.plot.LinePlot;
+import com.sawyerharris.capstone.plot.PhasePlot;
 import com.sawyerharris.capstone.simulation.DoublePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 import com.sawyerharris.capstone.view.PendulumTrace;
@@ -51,12 +52,13 @@ public class DoubleDemo extends Demo {
 	private Slider mass2Slider;
 	private Label mass2Label;
 	private Label mass2Value;
-	private Plot angularPlot;
+	private LinePlot angularPlot;
 	private Table interfaceTable;
 	private Table plotTable;
-	private Plot energyPlot;
+	private LinePlot energyPlot;
 	private TextButton angularButton;
 	private TextButton energyButton;
+	private PhasePlot phasePlot;
 	
 	public DoubleDemo() {
 		////////////////
@@ -247,11 +249,11 @@ public class DoubleDemo extends Demo {
 		
 		plotWindow = new Group();
 		plotWindow.setBounds(0, 0, Demo.PLOT_WIDTH, Demo.PLOT_WIDTH);
-		angularPlot = new Plot((float) Math.PI * 6, 0, true);
-		energyPlot = new Plot(20, 0, true);
+		angularPlot = new LinePlot((float) Math.PI * 6, 0, true);
+		energyPlot = new LinePlot(20, 0, true);
 		
 		plotTable = new Table();
-		plotTable.setBounds(0, Plot.PLOT_SIZE, Plot.PLOT_SIZE, 50);
+		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 50);
 		
 		angularButton = new TextButton("Angle + Angular velocity", skin);
 		angularButton.addListener(new ClickListener() {
@@ -274,7 +276,9 @@ public class DoubleDemo extends Demo {
 		plotTable.add(angularButton);
 		plotTable.add(energyButton);
 		
-		plotWindow.addActor(angularPlot);
+		phasePlot = new PhasePlot();
+		
+		plotWindow.addActor(phasePlot);
 		plotWindow.addActor(plotTable);
 	}
 	
@@ -290,11 +294,12 @@ public class DoubleDemo extends Demo {
 			
 			float x = pendulum2.pivot.x + (float) pendulum2.getLengthX();
 			float y = pendulum2.pivot.y + (float) pendulum2.getLengthY();
-			trace.enqueue(x, y);
+			trace.addVertex(x, y);
 		}
 		angularPlot.addData1((float) (sim.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) (sim.getPsi2() % (2*Math.PI)));
 		energyPlot.addData1((float) sim.getEnergy1());
 		energyPlot.addData2((float) sim.getEnergy2());
+		phasePlot.addData((float) (sim.getPsi2() % (2 * Math.PI)), (float) sim.getOmega2());
 	}
 }

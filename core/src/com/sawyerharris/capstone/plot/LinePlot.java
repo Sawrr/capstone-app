@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.sawyerharris.capstone.view.ShapeActor;
 
-public class Plot extends ShapeActor {
+public class LinePlot extends ShapeActor {
 	public static final float PLOT_SIZE = 500;
 	private static final int NUM_POINTS = 300;
 	private float[] vertices1;
@@ -18,7 +18,7 @@ public class Plot extends ShapeActor {
 	private float scale;
 	private boolean twoDataSets;
 	
-	public Plot(float scale, float offset, boolean twoDataSets) {
+	public LinePlot(float scale, float offset, boolean twoDataSets) {
 		this.scale = scale;
 		this.offset = offset;
 		this.twoDataSets = twoDataSets;
