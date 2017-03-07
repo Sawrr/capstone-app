@@ -42,7 +42,7 @@ public class DoublePendulumSimulation extends TwoPendulumSimulation {
 	
 	private double omega2dot(double psi1, double psi2, double omega1, double omega2) {
 		double mu = 1 + mass1/mass2;
-		double num = gravity * mu * (Math.sin(psi1) * Math.cos(psi1-psi2) - Math.sin(psi2)) - (mu * length1 * omega1*omega1 + length2 * omega2*omega2 * Math.cos(psi1 - psi2)) * Math.sin(psi1-psi2);
+		double num = gravity * mu * (Math.sin(psi1) * Math.cos(psi1-psi2) - Math.sin(psi2)) + (mu * length1 * omega1*omega1 + length2 * omega2*omega2 * Math.cos(psi1 - psi2)) * Math.sin(psi1-psi2);
 		double den = length2 * (mu - Math.cos(psi1-psi2)*Math.cos(psi1-psi2));
 		return num / den;
 	}
