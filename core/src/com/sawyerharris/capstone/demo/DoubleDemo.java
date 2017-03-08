@@ -145,7 +145,7 @@ public class DoubleDemo extends Demo {
 		interfaceTable.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		
 		// Gravity parameter
-		gravitySlider = new Slider(0, 100, .1f, false, skin);
+		gravitySlider = new Slider(0, 50, .1f, false, skin);
 		gravitySlider.setValue(defGravity);
 		gravitySlider.addListener(new ChangeListener() {
 			@Override
