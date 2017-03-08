@@ -59,6 +59,7 @@ public class DoubleDemo extends Demo {
 	private PhasePlot phasePlot;
 	private TextButton symModeButton;
 	private TextButton antisymModeButton;
+	private TextButton traceButton;
 	
 	public DoubleDemo() {
 		////////////////
@@ -260,6 +261,8 @@ public class DoubleDemo extends Demo {
 				mass2Slider.setValue(defMass);
 				simulation.setParameter("gravity", defGravity);
 				gravitySlider.setValue(defGravity);
+				
+				trace.reset();
 			}
 		});
 		
@@ -283,11 +286,29 @@ public class DoubleDemo extends Demo {
 				mass2Slider.setValue(defMass);
 				simulation.setParameter("gravity", defGravity);
 				gravitySlider.setValue(defGravity);
+				
+				trace.reset();
 			}
 		});
 		
 		interfaceTable.add(symModeButton);
 		interfaceTable.add(antisymModeButton);
+		
+		traceButton = new TextButton("Toggle trace", skin);
+		traceButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (simulationWindow.getChildren().contains(trace, true)) {
+					simulationWindow.removeActor(trace);
+				} else {
+					trace.reset();
+					simulationWindow.addActor(trace);
+				}
+			}
+		});
+		
+		interfaceTable.row();
+		interfaceTable.add(traceButton);
 		
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);

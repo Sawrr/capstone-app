@@ -49,7 +49,12 @@ public class PhasePlot extends ShapeActor {
 		renderer.polygon(borders);
 		
 		renderer.setColor(Color.RED);
-		if (size > 3) renderer.polyline(vertices, 0, size);
+		if (size > 3) {
+			//renderer.polyline(vertices, 0, size);
+			for (int i = 0; i < size; i += 2) {
+				renderer.point(vertices[i], vertices[i+1], 0);
+			}
+		}
 		
 		renderer.end();
 		//clipEnd();
