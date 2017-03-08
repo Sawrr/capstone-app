@@ -23,7 +23,7 @@ public class SpringDemo extends Demo {
 	private static final float MASS_BASE = 10f;
 	
 	private float defGravity = 9.8f;
-	private float defLength = 2;
+	private float defLength = 3;
 	private float defPsi1 = 0.3f;
 	private float defOmega1 = 0;
 	private float defMass = 5;

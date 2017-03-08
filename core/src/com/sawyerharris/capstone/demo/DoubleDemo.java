@@ -24,14 +24,12 @@ public class DoubleDemo extends Demo {
 	private static final float MASS_BASE = 10f;
 	
 	private float defGravity = 9.8f;
-	private float defLength1 = 2;
+	private float defLength = 2.5f;
 	private float defPsi1 = 0.3f;
 	private float defOmega1 = 0;
-	private float defMass1 = 5;
-	private float defLength2 = 2;
+	private float defMass = 5;
 	private float defPsi2 = 0;
 	private float defOmega2 = 0;
-	private float defMass2 = 5;
 	
 	private Pendulum pendulum1;
 	private Pendulum pendulum2;
@@ -59,6 +57,8 @@ public class DoubleDemo extends Demo {
 	private TextButton angularButton;
 	private TextButton energyButton;
 	private PhasePlot phasePlot;
+	private TextButton symModeButton;
+	private TextButton antisymModeButton;
 	
 	public DoubleDemo() {
 		////////////////
@@ -67,19 +67,19 @@ public class DoubleDemo extends Demo {
 		
 		simulation = new DoublePendulumSimulation();
 		simulation.setParameter("gravity", defGravity);
-		simulation.setParameter("length1", defLength1);
+		simulation.setParameter("length1", defLength);
 		simulation.setParameter("psi1", defPsi1);
 		simulation.setParameter("omega1", defOmega1);
-		simulation.setParameter("mass1", defMass1);
-		simulation.setParameter("length2", defLength2);
+		simulation.setParameter("mass1", defMass);
+		simulation.setParameter("length2", defLength);
 		simulation.setParameter("psi2", defPsi2);
 		simulation.setParameter("omega2", defOmega2);
-		simulation.setParameter("mass2", defMass2);
+		simulation.setParameter("mass2", defMass);
 		
 		simulationWindow = new Group();
 		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
-		pendulum1 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength1  * LENGTH_SCALE, MASS_BASE + defMass1 * MASS_SCALE);
+		pendulum1 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength  * LENGTH_SCALE, MASS_BASE + defMass * MASS_SCALE);
 		pendulum1.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -106,7 +106,7 @@ public class DoubleDemo extends Demo {
 			}
 		});
 		
-		pendulum2 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength2  * LENGTH_SCALE, MASS_BASE + defMass2 * MASS_SCALE);
+		pendulum2 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength  * LENGTH_SCALE, MASS_BASE + defMass * MASS_SCALE);
 		pendulum2.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -165,7 +165,7 @@ public class DoubleDemo extends Demo {
 		
 		// Length 1 parameter
 		length1Slider = new Slider(1f, 5, 0.1f, false, skin);
-		length1Slider.setValue(defLength1);
+		length1Slider.setValue(defLength);
 		length1Slider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -176,11 +176,11 @@ public class DoubleDemo extends Demo {
 			}
 		});
 		length1Label = new Label("Length 1", skin);
-		length1Value = new Label(String.format("%.1f", defLength1), skin);
+		length1Value = new Label(String.format("%.1f", defLength), skin);
 		
 		// Length 2 parameter
 		length2Slider = new Slider(1f, 5, 0.1f, false, skin);
-		length2Slider.setValue(defLength2);
+		length2Slider.setValue(defLength);
 		length2Slider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -191,7 +191,7 @@ public class DoubleDemo extends Demo {
 			}
 		});
 		length2Label = new Label("Length 2", skin);
-		length2Value = new Label(String.format("%.1f", defLength2), skin);
+		length2Value = new Label(String.format("%.1f", defLength), skin);
 		
 		interfaceTable.add(length1Label).spaceRight(10);
 		interfaceTable.add(length1Slider);
@@ -204,7 +204,7 @@ public class DoubleDemo extends Demo {
 		
 		// Mass parameter
 		mass1Slider = new Slider(1, 10, 1f, false, skin);
-		mass1Slider.setValue(defMass1);
+		mass1Slider.setValue(defMass);
 		mass1Slider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -215,10 +215,10 @@ public class DoubleDemo extends Demo {
 			}
 		});
 		mass1Label = new Label("Mass 1", skin);
-		mass1Value = new Label(String.format("%.0f", defMass1), skin);
+		mass1Value = new Label(String.format("%.0f", defMass), skin);
 		
 		mass2Slider = new Slider(1, 10, 1f, false, skin);
-		mass2Slider.setValue(defMass2);
+		mass2Slider.setValue(defMass);
 		mass2Slider.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -229,7 +229,7 @@ public class DoubleDemo extends Demo {
 			}
 		});
 		mass2Label = new Label("Mass 2", skin);
-		mass2Value = new Label(String.format("%.0f", defMass2), skin);
+		mass2Value = new Label(String.format("%.0f", defMass), skin);
 		
 		interfaceTable.add(mass1Label).spaceRight(10);
 		interfaceTable.add(mass1Slider);
@@ -239,6 +239,55 @@ public class DoubleDemo extends Demo {
 		interfaceTable.add(mass2Slider);
 		interfaceTable.add(mass2Value).expandX();
 		interfaceTable.row();
+		
+		symModeButton = new TextButton("Symmetric Mode", skin);
+		symModeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				double ratio = 2 * (1 - (2*defMass*defLength) / (4*defMass*defLength + 2*Math.sqrt(2*defMass*defMass*defLength*defLength)));
+								
+				simulation.setParameter("psi1", defPsi1);
+				simulation.setParameter("psi2", defPsi1 * ratio);
+				simulation.setParameter("omega1", 0);
+				simulation.setParameter("omega2", 0);
+				simulation.setParameter("length1", defLength);
+				length1Slider.setValue(defLength);
+				simulation.setParameter("length2", defLength);
+				length2Slider.setValue(defLength);
+				simulation.setParameter("mass1", defMass);
+				mass1Slider.setValue(defMass);
+				simulation.setParameter("mass2", defMass);
+				mass2Slider.setValue(defMass);
+				simulation.setParameter("gravity", defGravity);
+				gravitySlider.setValue(defGravity);
+			}
+		});
+		
+		antisymModeButton = new TextButton("Anti-Symmetric Mode", skin);
+		antisymModeButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				double ratio = 2 * (1 - (2*defMass*defLength) / (4*defMass*defLength - 2*Math.sqrt(2*defMass*defMass*defLength*defLength)));
+								
+				simulation.setParameter("psi1", defPsi1);
+				simulation.setParameter("psi2", defPsi1 * ratio);
+				simulation.setParameter("omega1", 0);
+				simulation.setParameter("omega2", 0);
+				simulation.setParameter("length1", defLength);
+				length1Slider.setValue(defLength);
+				simulation.setParameter("length2", defLength);
+				length2Slider.setValue(defLength);
+				simulation.setParameter("mass1", defMass);
+				mass1Slider.setValue(defMass);
+				simulation.setParameter("mass2", defMass);
+				mass2Slider.setValue(defMass);
+				simulation.setParameter("gravity", defGravity);
+				gravitySlider.setValue(defGravity);
+			}
+		});
+		
+		interfaceTable.add(symModeButton);
+		interfaceTable.add(antisymModeButton);
 		
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);
