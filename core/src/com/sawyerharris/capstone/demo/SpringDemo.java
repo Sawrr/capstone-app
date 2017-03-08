@@ -63,6 +63,7 @@ public class SpringDemo extends Demo {
 	private TextButton energyButton;
 	private TextButton symModeButton;
 	private Actor antisymModeButton;
+	private TextButton beatsButton;
 	
 	public SpringDemo() {
 		////////////////
@@ -265,6 +266,29 @@ public class SpringDemo extends Demo {
 		interfaceTable.add(springConstantValue).expandX();
 		interfaceTable.row();
 		
+		beatsButton = new TextButton("Beats", skin);
+		beatsButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				simulation.setParameter("psi1", defPsi1);
+				simulation.setParameter("psi2", defPsi2);
+				simulation.setParameter("omega1", defOmega1);
+				simulation.setParameter("omega2", defOmega2);
+				simulation.setParameter("length1", defLength);
+				length1Slider.setValue(defLength);
+				simulation.setParameter("length2", defLength);
+				length2Slider.setValue(defLength);
+				simulation.setParameter("mass1", defMass);
+				mass1Slider.setValue(defMass);
+				simulation.setParameter("mass2", defMass);
+				mass2Slider.setValue(defMass);
+				simulation.setParameter("gravity", defGravity);
+				gravitySlider.setValue(defGravity);
+				simulation.setParameter("springConstant", defSpringConstant);
+				springConstantSlider.setValue(defSpringConstant);
+			}
+		});
+		
 		symModeButton = new TextButton("Symmetric Mode", skin);
 		symModeButton.addListener(new ClickListener() {
 			@Override
@@ -313,6 +337,8 @@ public class SpringDemo extends Demo {
 		
 		interfaceTable.add(symModeButton);
 		interfaceTable.add(antisymModeButton);
+		interfaceTable.row();
+		interfaceTable.add(beatsButton);
 		
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);
