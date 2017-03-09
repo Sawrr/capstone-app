@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.sawyerharris.capstone.demo.CartDemo;
 import com.sawyerharris.capstone.demo.Demo;
 import com.sawyerharris.capstone.demo.DoubleDemo;
 import com.sawyerharris.capstone.demo.VerticalDemo;
@@ -50,6 +51,7 @@ public class PendulumApplication extends ApplicationAdapter {
 		demos[1] = new SpringDemo();
 		demos[2] = new DoubleDemo();
 		demos[3] = new VerticalDemo();
+		demos[4] = new CartDemo();
 		
 		// Create GUI
 		stage = new Stage();
@@ -98,7 +100,7 @@ public class PendulumApplication extends ApplicationAdapter {
 		demoButtons[4].addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("clicked hi");
+				setDemo(demos[4]);
 			}
 		});
 			
