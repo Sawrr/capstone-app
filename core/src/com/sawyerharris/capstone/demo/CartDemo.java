@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sawyerharris.capstone.app.PendulumApplication;
@@ -26,8 +27,8 @@ public class CartDemo extends Demo {
 	private float defPsi1 = (float) Math.PI + .1f;
 	private float defOmega1 = 0;
 	private float defMass = 2;
-	private float defCartMass = 2f;
-	private float defCartX = Demo.SIMULATION_WIDTH/2;
+	private float defCartMass = 10f;
+	private float defCartX = (Demo.SIMULATION_WIDTH / LENGTH_SCALE) / 2;
 	private float defCartV = 0;
 	
 	private Pendulum pendulum;
@@ -48,6 +49,7 @@ public class CartDemo extends Demo {
 	private LinePlot energyPlot;
 	private TextButton angularButton;
 	private TextButton energyButton;
+	private TextButton resetButton;
 	
 	public CartDemo() {
 		////////////////
@@ -69,6 +71,20 @@ public class CartDemo extends Demo {
 		
 		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength * LENGTH_SCALE, MASS_BASE + defMass * MASS_SCALE);
 		cart = new Cart(150);
+		cart.addListener(new ActorGestureListener() {
+			@Override
+			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
+				System.out.println(x);
+				float force = Math.max(Math.abs(x), 20);
+				if (x < 0) force *= -1;
+				simulation.setParameter("forceX", force);
+			}
+			
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				simulation.setParameter("forceX", 0);
+			}
+		});
 		
 		simulationWindow.addActor(cart);
 		simulationWindow.addActor(pendulum);
@@ -139,7 +155,20 @@ public class CartDemo extends Demo {
 		interfaceTable.add(massSlider);
 		interfaceTable.add(massValue).expandX();
 		interfaceTable.row();
+		
+		resetButton = new TextButton("Reset", skin);
+		resetButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				simulation.setParameter("psi1", defPsi1);
+				simulation.setParameter("omega1", defOmega1);
+				simulation.setParameter("cartX", defCartX);
+				simulation.setParameter("cartV", defCartV);
+			}
+		});
 
+		interfaceTable.add(resetButton);
+		
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);
 		
@@ -184,8 +213,8 @@ public class CartDemo extends Demo {
 		if (PendulumApplication.getInstance().isSimulationRunning()) {
 			PendulumCartSimulation sim = (PendulumCartSimulation) simulation;
 			pendulum.angle = sim.getPsi1() - Math.PI / 2;
+			cart.x = (float) sim.getCartX() * LENGTH_SCALE;
 			pendulum.pivot.x = cart.x;
-			cart.x = (float) sim.getCartX();
 		}
 		angularPlot.addData1((float) (simulation.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) simulation.getOmega1());
