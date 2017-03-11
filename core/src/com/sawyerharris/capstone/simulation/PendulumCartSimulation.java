@@ -1,5 +1,7 @@
 package com.sawyerharris.capstone.simulation;
 
+import com.sawyerharris.capstone.demo.Demo;
+
 public class PendulumCartSimulation extends Simulation {
 	private double cartX;
 	private double cartV;
@@ -35,7 +37,9 @@ public class PendulumCartSimulation extends Simulation {
 		cartV = (va + 2 * vb + vc + vd / 2) / 3 - cartV / 2;
 		cartX = (xa + 2 * xb + xc + xd / 2) / 3 - cartX / 2;
 		
-		//energy1 = -mass1 * gravity * length1 * Math.cos(psi1) + mass1 * length1 * length1 / 2 * omega1 * omega1;
+		float maxCartX = Demo.SIMULATION_WIDTH / Demo.LENGTH_SCALE;
+		if (cartX > maxCartX) cartX %= maxCartX;
+		if (cartX < 0) cartX += maxCartX;
 	}
 	
 	private double omegadot(double psi, double omega) {

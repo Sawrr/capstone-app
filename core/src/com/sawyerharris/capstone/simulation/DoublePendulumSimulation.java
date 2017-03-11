@@ -29,8 +29,6 @@ public class DoublePendulumSimulation extends TwoPendulumSimulation {
 		omega2 = (omega2a + 2 * omega2b + omega2c + omega2d / 2) / 3 - omega2 / 2;
 		psi1 = (psi1a + 2 * psi1b + psi1c + psi1d / 2) / 3 - psi1 / 2;
 		psi2 = (psi2a + 2 * psi2b + psi2c + psi2d / 2) / 3 - psi2 / 2;
-		
-		//energy1 = -mass1 * gravity * length1 * Math.cos(psi1) + mass1 * length1 * length1 / 2 * omega1 * omega1;
 	}
 	
 	private double omega1dot(double psi1, double psi2, double omega1, double omega2) {

@@ -7,7 +7,7 @@ import com.sawyerharris.capstone.util.SkinManager;
 
 public abstract class Demo {
 	public static final float LENGTH_SCALE = 25f;
-	public static final float MASS_SCALE = 2f;
+	public static final float MASS_SCALE = 1.5f;
 	public static final float MASS_BASE = 5f;
 	
 	public static final float SIMULATION_WIDTH = 550;

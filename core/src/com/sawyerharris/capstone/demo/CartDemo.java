@@ -18,6 +18,9 @@ import com.sawyerharris.capstone.view.Cart;
 import com.sawyerharris.capstone.view.Pendulum;
 
 public class CartDemo extends Demo {	
+	private static final float CART_MASS_SCALE = 10f;
+	private static final float CART_MASS_BASE = 50f;
+	
 	private float defGravity = 9.8f;
 	private float defLength = 3;
 	private float defPsi1 = (float) Math.PI + .1f;
@@ -44,6 +47,9 @@ public class CartDemo extends Demo {
 	private Table plotTable;
 	private TextButton angularButton;
 	private TextButton resetButton;
+	private Slider cartMassSlider;
+	private Label cartMassLabel;
+	private Label cartMassValue;
 	
 	public CartDemo() {
 		////////////////
@@ -64,7 +70,7 @@ public class CartDemo extends Demo {
 		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
 		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength * LENGTH_SCALE, MASS_BASE + defMass * MASS_SCALE);
-		cart = new Cart(150);
+		cart = new Cart(CART_MASS_BASE + defCartMass * CART_MASS_SCALE);
 		cart.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
@@ -105,7 +111,7 @@ public class CartDemo extends Demo {
 		gravityLabel = new Label("Gravity", skin);
 		gravityValue = new Label(String.format("%.1f", defGravity), skin);
 
-		interfaceTable.add(gravityLabel).spaceRight(10);
+		interfaceTable.add(gravityLabel);
 		interfaceTable.add(gravitySlider);
 		interfaceTable.add(gravityValue).expandX();
 		interfaceTable.row();
@@ -125,9 +131,9 @@ public class CartDemo extends Demo {
 		lengthLabel = new Label("Length", skin);
 		lengthValue = new Label(String.format("%.1f", defLength), skin);
 		
-		interfaceTable.add(lengthLabel).spaceRight(10);
+		interfaceTable.add(lengthLabel);
 		interfaceTable.add(lengthSlider);
-		interfaceTable.add(lengthValue).expandX();
+		interfaceTable.add(lengthValue);
 		interfaceTable.row();
 		
 		// Mass parameter
@@ -145,9 +151,29 @@ public class CartDemo extends Demo {
 		massLabel = new Label("Mass", skin);
 		massValue = new Label(String.format("%.0f", defMass), skin);	
 		
-		interfaceTable.add(massLabel).spaceRight(10);
+		interfaceTable.add(massLabel);
 		interfaceTable.add(massSlider);
-		interfaceTable.add(massValue).expandX();
+		interfaceTable.add(massValue);
+		interfaceTable.row();
+		
+		// Cart Mass parameter
+		cartMassSlider = new Slider(1, 10, 1f, false, skin);
+		cartMassSlider.setValue(defCartMass);
+		cartMassSlider.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				float value = ((Slider) actor).getValue();
+				simulation.setParameter("cartMass", value);
+				cartMassValue.setText(String.format("%.0f", value));
+				cart.width = CART_MASS_BASE + value * CART_MASS_SCALE;
+			}
+		});
+		cartMassLabel = new Label("Cart Mass", skin);
+		cartMassValue = new Label(String.format("%.0f", defCartMass), skin);
+		
+		interfaceTable.add(cartMassLabel);
+		interfaceTable.add(cartMassSlider);
+		interfaceTable.add(cartMassValue);
 		interfaceTable.row();
 		
 		resetButton = new TextButton("Reset", skin);
