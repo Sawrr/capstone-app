@@ -20,11 +20,11 @@ import com.sawyerharris.capstone.view.Pendulum;
 public class VerticalDemo extends Demo {
 	private float defGravity = 9.8f;
 	private float defLength = 3;
-	private float defPsi1 = .01f;
+	private float defPsi1 = .02f;
 	private float defOmega1 = 0;
 	private float defMass = 1;
-	private float defOmegaDrive = 3.614f;
-	private float defDriveAmplitude = 0.02f;
+	private float defOmegaDrive = 3.615f;
+	private float defDriveAmplitude = 0.15f;
 	private float defDamping = 0;
 	private float defOmegaDriveKapitza = 200;
 	private float defPsi1Kapitza = (float) Math.PI + 0.3f;
@@ -227,14 +227,16 @@ public class VerticalDemo extends Demo {
 		parametricButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				double paraOmegaDrive = 2 * Math.sqrt(simulation.getGravity() / simulation.getLength1());
-				System.out.println(paraOmegaDrive);
 				simulation.setParameter("psi1", defPsi1);
 				simulation.setParameter("omega1", defOmega1);
 				simulation.setParameter("driveAmplitude", defDriveAmplitude);
 				driveAmplitudeSlider.setValue(defDriveAmplitude);
-				simulation.setParameter("omegaDrive", paraOmegaDrive);
-				omegaDriveSlider.setValue((float) paraOmegaDrive);
+				simulation.setParameter("length1", defLength);
+				lengthSlider.setValue(defLength);
+				simulation.setParameter("mass1", defMass);
+				massSlider.setValue(defMass);
+				simulation.setParameter("omegaDrive", defOmegaDrive);
+				omegaDriveSlider.setValue(defOmegaDrive);
 				simulation.setParameter("damping", defDamping);
 				dampingSlider.setValue(defDamping);
 			}
