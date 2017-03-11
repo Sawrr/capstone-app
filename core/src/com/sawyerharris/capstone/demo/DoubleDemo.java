@@ -46,12 +46,9 @@ public class DoubleDemo extends Demo {
 	private Slider mass2Slider;
 	private Label mass2Label;
 	private Label mass2Value;
-	private LinePlot angularPlot;
 	private Table interfaceTable;
 	private Table plotTable;
-	private LinePlot energyPlot;
-	private TextButton angularButton;
-	private TextButton energyButton;
+	private TextButton phaseButton;
 	private PhasePlot phasePlot;
 	private TextButton symModeButton;
 	private TextButton antisymModeButton;
@@ -315,32 +312,20 @@ public class DoubleDemo extends Demo {
 		
 		plotWindow = new Group();
 		plotWindow.setBounds(0, 0, Demo.PLOT_WIDTH, Demo.PLOT_WIDTH);
-		angularPlot = new LinePlot((float) Math.PI * 6, 0, true);
-		energyPlot = new LinePlot(20, 0, true);
 		
 		plotTable = new Table();
 		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 50);
 		
-		angularButton = new TextButton("Angle + Angular velocity", skin);
-		angularButton.addListener(new ClickListener() {
+		phaseButton = new TextButton("Phase Plot", skin);
+		phaseButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				plotWindow.removeActor(energyPlot);
-				plotWindow.addActor(angularPlot);
+				System.out.println("aerherh");
+				phasePlot.reset();
 			}
 		});
 		
-		energyButton = new TextButton("Energy", skin);
-		energyButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				plotWindow.removeActor(angularPlot);
-				plotWindow.addActor(energyPlot);
-			}
-		});
-		
-		plotTable.add(angularButton);
-		plotTable.add(energyButton);
+		plotTable.add(phaseButton);
 		
 		phasePlot = new PhasePlot();
 		
@@ -362,10 +347,6 @@ public class DoubleDemo extends Demo {
 			float y = pendulum2.pivot.y + (float) pendulum2.getLengthY();
 			trace.addVertex(x, y);
 		}
-		angularPlot.addData1((float) (sim.getPsi1() % (2*Math.PI)));
-		angularPlot.addData2((float) (sim.getPsi2() % (2*Math.PI)));
-		energyPlot.addData1((float) sim.getEnergy1());
-		energyPlot.addData2((float) sim.getEnergy2());
 		phasePlot.addData((float) (sim.getPsi2() % (2 * Math.PI)), (float) sim.getOmega2());
 	}
 }

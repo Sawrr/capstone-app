@@ -41,7 +41,7 @@ public class PhasePlot extends ShapeActor {
 
 	@Override
 	public void drawShapes() {	
-		//clipBegin();
+		clipBegin();
 		renderer.begin(ShapeType.Line);
 		
 		renderer.setColor(Color.BLACK);
@@ -57,6 +57,10 @@ public class PhasePlot extends ShapeActor {
 		}
 		
 		renderer.end();
-		//clipEnd();
+		clipEnd();
+	}
+
+	public void reset() {
+		size = 0;
 	}
 }

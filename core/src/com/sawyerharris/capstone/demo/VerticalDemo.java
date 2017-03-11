@@ -43,9 +43,7 @@ public class VerticalDemo extends Demo {
 	private LinePlot angularPlot;
 	private Table interfaceTable;
 	private Table plotTable;
-	private LinePlot energyPlot;
 	private TextButton angularButton;
-	private TextButton energyButton;
 	private Slider omegaDriveSlider;
 	private Label omegaDriveLabel;
 	private Label omegaDriveValue;
@@ -274,31 +272,13 @@ public class VerticalDemo extends Demo {
 		plotWindow = new Group();
 		plotWindow.setBounds(0, 0, Demo.PLOT_WIDTH, Demo.PLOT_WIDTH);
 		angularPlot = new LinePlot((float) Math.PI * 6, 0, true);
-		energyPlot = new LinePlot(3000, 0, false);
 		
 		plotTable = new Table();
-		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 50);
+		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 25);
 		
 		angularButton = new TextButton("Angle + Angular velocity", skin);
-		angularButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				plotWindow.removeActor(energyPlot);
-				plotWindow.addActor(angularPlot);
-			}
-		});
-		
-		energyButton = new TextButton("Energy", skin);
-		energyButton.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				plotWindow.removeActor(angularPlot);
-				plotWindow.addActor(energyPlot);
-			}
-		});
 		
 		plotTable.add(angularButton);
-		plotTable.add(energyButton);
 		
 		plotWindow.addActor(angularPlot);
 		plotWindow.addActor(plotTable);
@@ -313,6 +293,5 @@ public class VerticalDemo extends Demo {
 		}
 		angularPlot.addData1((float) (simulation.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) simulation.getOmega1());
-		energyPlot.addData1((float) simulation.getEnergy1());
 	}
 }
