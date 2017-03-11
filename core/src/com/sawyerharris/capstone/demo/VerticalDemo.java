@@ -119,9 +119,9 @@ public class VerticalDemo extends Demo {
 		gravityLabel = new Label("Gravity", skin);
 		gravityValue = new Label(String.format("%.1f", defGravity), skin);
 
-		interfaceTable.add(gravityLabel).spaceRight(10);
+		interfaceTable.add(gravityLabel);
 		interfaceTable.add(gravitySlider);
-		interfaceTable.add(gravityValue).expandX();
+		interfaceTable.add(gravityValue).width(25);
 		interfaceTable.row();
 		
 		// Length parameter
@@ -139,9 +139,9 @@ public class VerticalDemo extends Demo {
 		lengthLabel = new Label("Length", skin);
 		lengthValue = new Label(String.format("%.1f", defLength), skin);
 		
-		interfaceTable.add(lengthLabel).spaceRight(10);
+		interfaceTable.add(lengthLabel);
 		interfaceTable.add(lengthSlider);
-		interfaceTable.add(lengthValue).expandX();
+		interfaceTable.add(lengthValue);
 		interfaceTable.row();
 		
 		// Mass parameter
@@ -159,9 +159,9 @@ public class VerticalDemo extends Demo {
 		massLabel = new Label("Mass", skin);
 		massValue = new Label(String.format("%.0f", defMass), skin);	
 		
-		interfaceTable.add(massLabel).spaceRight(10);
+		interfaceTable.add(massLabel);
 		interfaceTable.add(massSlider);
-		interfaceTable.add(massValue).expandX();
+		interfaceTable.add(massValue);
 		interfaceTable.row();
 
 		// Damping parameter
@@ -178,9 +178,9 @@ public class VerticalDemo extends Demo {
 		dampingLabel = new Label("Damping", skin);
 		dampingValue = new Label(String.format("%.1f", defDamping), skin);
 		
-		interfaceTable.add(dampingLabel).spaceRight(10);
+		interfaceTable.add(dampingLabel);
 		interfaceTable.add(dampingSlider);
-		interfaceTable.add(dampingValue).expandX();
+		interfaceTable.add(dampingValue);
 		interfaceTable.row();
 		
 		// Drive frequency parameter
@@ -197,9 +197,9 @@ public class VerticalDemo extends Demo {
 		omegaDriveLabel = new Label("Drive Frequency", skin);
 		omegaDriveValue = new Label(String.format("%.0f", defOmegaDrive), skin);
 		
-		interfaceTable.add(omegaDriveLabel).spaceRight(10);
+		interfaceTable.add(omegaDriveLabel);
 		interfaceTable.add(omegaDriveSlider);
-		interfaceTable.add(omegaDriveValue).expandX();
+		interfaceTable.add(omegaDriveValue).width(25);
 		interfaceTable.row();
 		
 		// Drive amplitude parameter
@@ -216,9 +216,9 @@ public class VerticalDemo extends Demo {
 		driveAmplitudeLabel = new Label("Drive Amplitude", skin);
 		driveAmplitudeValue = new Label(String.format("%.2f", defDriveAmplitude), skin);	
 		
-		interfaceTable.add(driveAmplitudeLabel).spaceRight(10);
+		interfaceTable.add(driveAmplitudeLabel);
 		interfaceTable.add(driveAmplitudeSlider);
-		interfaceTable.add(driveAmplitudeValue).expandX();
+		interfaceTable.add(driveAmplitudeValue).width(25);
 		interfaceTable.row();
 		
 		parametricButton = new TextButton("Parametric Drive", skin);

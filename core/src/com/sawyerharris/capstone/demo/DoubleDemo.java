@@ -152,9 +152,9 @@ public class DoubleDemo extends Demo {
 		gravityLabel = new Label("Gravity", skin);
 		gravityValue = new Label(String.format("%.1f", defGravity), skin);
 
-		interfaceTable.add(gravityLabel).spaceRight(10);
+		interfaceTable.add(gravityLabel);
 		interfaceTable.add(gravitySlider);
-		interfaceTable.add(gravityValue).expandX();
+		interfaceTable.add(gravityValue).width(25);
 		interfaceTable.row();
 		
 		// Length 1 parameter
@@ -187,13 +187,13 @@ public class DoubleDemo extends Demo {
 		length2Label = new Label("Length 2", skin);
 		length2Value = new Label(String.format("%.1f", defLength), skin);
 		
-		interfaceTable.add(length1Label).spaceRight(10);
+		interfaceTable.add(length1Label);
 		interfaceTable.add(length1Slider);
-		interfaceTable.add(length1Value).expandX();
+		interfaceTable.add(length1Value);
 		interfaceTable.row();
-		interfaceTable.add(length2Label).spaceRight(10);
+		interfaceTable.add(length2Label);
 		interfaceTable.add(length2Slider);
-		interfaceTable.add(length2Value).expandX();
+		interfaceTable.add(length2Value);
 		interfaceTable.row();
 		
 		// Mass parameter
@@ -225,13 +225,13 @@ public class DoubleDemo extends Demo {
 		mass2Label = new Label("Mass 2", skin);
 		mass2Value = new Label(String.format("%.0f", defMass), skin);
 		
-		interfaceTable.add(mass1Label).spaceRight(10);
+		interfaceTable.add(mass1Label);
 		interfaceTable.add(mass1Slider);
-		interfaceTable.add(mass1Value).expandX();
+		interfaceTable.add(mass1Value);
 		interfaceTable.row();
-		interfaceTable.add(mass2Label).spaceRight(10);
+		interfaceTable.add(mass2Label);
 		interfaceTable.add(mass2Slider);
-		interfaceTable.add(mass2Value).expandX();
+		interfaceTable.add(mass2Value);
 		interfaceTable.row();
 		
 		symModeButton = new TextButton("Symmetric Mode", skin);

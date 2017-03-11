@@ -45,7 +45,7 @@ public class PhasePlot extends ShapeActor {
 		renderer.begin(ShapeType.Line);
 		
 		renderer.setColor(Color.BLACK);
-		float[] borders = {1, 1, PLOT_SIZE, 1, PLOT_SIZE, PLOT_SIZE, 1, PLOT_SIZE};
+		float[] borders = {1, 1, PLOT_SIZE - 1, 1, PLOT_SIZE - 1, PLOT_SIZE, 1, PLOT_SIZE};
 		renderer.polygon(borders);
 		
 		renderer.setColor(Color.RED);
