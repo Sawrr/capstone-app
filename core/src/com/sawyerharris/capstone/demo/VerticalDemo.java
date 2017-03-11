@@ -18,10 +18,6 @@ import com.sawyerharris.capstone.simulation.VerticalOscillationSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
 public class VerticalDemo extends Demo {
-	private final static float LENGTH_SCALE = 50f;
-	private static final float MASS_SCALE = 2f;
-	private static final float MASS_BASE = 10f;
-	
 	private float defGravity = 9.8f;
 	private float defLength = 3;
 	private float defPsi1 = .01f;

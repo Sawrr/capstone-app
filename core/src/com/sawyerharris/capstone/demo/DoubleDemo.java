@@ -18,11 +18,7 @@ import com.sawyerharris.capstone.simulation.DoublePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 import com.sawyerharris.capstone.view.PendulumTrace;
 
-public class DoubleDemo extends Demo {
-	private static final float LENGTH_SCALE = 50f;
-	private static final float MASS_SCALE = 2f;
-	private static final float MASS_BASE = 10f;
-	
+public class DoubleDemo extends Demo {	
 	private float defGravity = 9.8f;
 	private float defLength = 2.5f;
 	private float defPsi1 = 0.3f;
@@ -78,7 +74,7 @@ public class DoubleDemo extends Demo {
 		simulation.setParameter("mass2", defMass);
 		
 		simulationWindow = new Group();
-		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
+		simulationWindow.setBounds(0, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
 		pendulum1 = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength  * LENGTH_SCALE, MASS_BASE + defMass * MASS_SCALE);
 		pendulum1.addListener(new ActorGestureListener() {

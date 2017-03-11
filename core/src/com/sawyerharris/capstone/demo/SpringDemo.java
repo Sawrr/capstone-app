@@ -17,11 +17,7 @@ import com.sawyerharris.capstone.simulation.SpringPendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 import com.sawyerharris.capstone.view.Spring;
 
-public class SpringDemo extends Demo {
-	private static final float LENGTH_SCALE = 50f;
-	private static final float MASS_SCALE = 2f;
-	private static final float MASS_BASE = 10f;
-	
+public class SpringDemo extends Demo {	
 	private float defGravity = 9.8f;
 	private float defLength = 3;
 	private float defPsi1 = 0.3f;

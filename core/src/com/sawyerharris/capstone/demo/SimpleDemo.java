@@ -16,11 +16,7 @@ import com.sawyerharris.capstone.plot.LinePlot;
 import com.sawyerharris.capstone.simulation.SimplePendulumSimulation;
 import com.sawyerharris.capstone.view.Pendulum;
 
-public class SimpleDemo extends Demo {
-	private final static float LENGTH_SCALE = 50f;
-	private static final float MASS_SCALE = 2f;
-	private static final float MASS_BASE = 10f;
-	
+public class SimpleDemo extends Demo {	
 	private float defGravity = 9.8f;
 	private float defLength1 = 3;
 	private float defPsi1 = 1;
@@ -57,7 +53,7 @@ public class SimpleDemo extends Demo {
 		simulation.setParameter("mass1", defMass1);
 		
 		simulationWindow = new Group();
-		simulationWindow.setBounds(50, 50, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
+		simulationWindow.setBounds(-50, 0, Demo.SIMULATION_WIDTH, Demo.SIMULATION_WIDTH);
 		
 		pendulum = new Pendulum(new Vector2(Demo.SIMULATION_WIDTH/2, Demo.SIMULATION_WIDTH/2), 0, defLength1 * LENGTH_SCALE, MASS_BASE + defMass1 * MASS_SCALE);
 		pendulum.addListener(new ActorGestureListener() {
@@ -162,7 +158,7 @@ public class SimpleDemo extends Demo {
 		energyPlot = new LinePlot(3000, 0, false);
 		
 		plotTable = new Table();
-		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 50);
+		plotTable.setBounds(0, LinePlot.PLOT_SIZE, LinePlot.PLOT_SIZE, 25);
 		
 		angularButton = new TextButton("Angle + Angular velocity", skin);
 		angularButton.addListener(new ClickListener() {

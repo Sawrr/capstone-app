@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.sawyerharris.capstone.demo.CartDemo;
 import com.sawyerharris.capstone.demo.Demo;
 import com.sawyerharris.capstone.demo.DoubleDemo;
@@ -26,6 +27,7 @@ public class PendulumApplication extends ApplicationAdapter {
 	private static PendulumApplication instance;
 	
 	private Stage stage;
+	private StretchViewport viewport;
 	private Simulator simulator;
 	private Demo demo;
 	private Demo[] demos;
@@ -34,6 +36,7 @@ public class PendulumApplication extends ApplicationAdapter {
 	private Table table;
 	private VerticalGroup vGroup;
 	private HorizontalGroup hGroup;
+	private VerticalGroup hvGroup;
 	
 	public static PendulumApplication getInstance() {
 		return instance;
@@ -54,12 +57,14 @@ public class PendulumApplication extends ApplicationAdapter {
 		demos[4] = new CartDemo();
 		
 		// Create GUI
-		stage = new Stage();
+		viewport = new StretchViewport(900, 600);
+		stage = new Stage(viewport);
 		Gdx.input.setInputProcessor(stage);
 		
 		vGroup = new VerticalGroup();
-		vGroup.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		vGroup.setBounds(0, 0, 900, 600);
 		hGroup = new HorizontalGroup();
+		hvGroup = new VerticalGroup();
 		
 		table = new Table();
 		TextButton[] demoButtons = new TextButton[NUM_DEMOS];
@@ -128,6 +133,7 @@ public class PendulumApplication extends ApplicationAdapter {
 		vGroup.addActor(table);
 				
 		vGroup.addActor(hGroup);
+		hGroup.addActor(hvGroup);
 		stage.addActor(vGroup);
 		
 		simulator = new Simulator();
@@ -157,9 +163,11 @@ public class PendulumApplication extends ApplicationAdapter {
 		simulator.setRunning(true);
 		
 		hGroup.clearChildren();
-		hGroup.addActor(demo.getPlotWindow());
+		hvGroup.clearChildren();
 		hGroup.addActor(demo.getSimulationWindow());
-		hGroup.addActor(demo.getInterfaceWindow());	
+		hGroup.addActor(hvGroup);
+		hvGroup.addActor(demo.getInterfaceWindow());
+		hvGroup.addActor(demo.getPlotWindow());
 	}
 	
 	@Override

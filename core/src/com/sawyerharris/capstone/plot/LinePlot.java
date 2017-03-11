@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.sawyerharris.capstone.view.ShapeActor;
 
 public class LinePlot extends ShapeActor {
-	public static final float PLOT_SIZE = 500;
+	public static final float PLOT_SIZE = 250;
 	private static final int NUM_POINTS = 300;
 	private float[] vertices1;
 	private float[] data1;

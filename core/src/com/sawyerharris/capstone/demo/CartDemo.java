@@ -17,11 +17,7 @@ import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 import com.sawyerharris.capstone.view.Cart;
 import com.sawyerharris.capstone.view.Pendulum;
 
-public class CartDemo extends Demo {
-	private final static float LENGTH_SCALE = 50f;
-	private static final float MASS_SCALE = 2f;
-	private static final float MASS_BASE = 10f;
-	
+public class CartDemo extends Demo {	
 	private float defGravity = 9.8f;
 	private float defLength = 3;
 	private float defPsi1 = (float) Math.PI + .1f;
