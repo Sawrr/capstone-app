@@ -67,6 +67,10 @@ public class PendulumCartSimulation extends Simulation {
 	public double getCartX() {
 		return cartX;
 	}
+	
+	public double getCartV() {
+		return cartV;
+	}
 
 	public double getCartMass() {
 		return cartMass;

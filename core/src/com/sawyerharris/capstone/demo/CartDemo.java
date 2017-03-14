@@ -51,12 +51,12 @@ public class CartDemo extends Demo {
 	private Label cartMassLabel;
 	private Label cartMassValue;
 	
-	public CartDemo() {
+	public CartDemo(PendulumCartSimulation sim) {
 		////////////////
 		// SIMULATION //
 		////////////////
 		
-		simulation = new PendulumCartSimulation();
+		simulation = sim;
 		simulation.setParameter("gravity", defGravity);
 		simulation.setParameter("length1", defLength);
 		simulation.setParameter("psi1", defPsi1);

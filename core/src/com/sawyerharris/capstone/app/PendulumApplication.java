@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.sawyerharris.capstone.algorithm.controller.AlgorithmController;
 import com.sawyerharris.capstone.demo.CartDemo;
 import com.sawyerharris.capstone.demo.Demo;
 import com.sawyerharris.capstone.demo.DoubleDemo;
 import com.sawyerharris.capstone.demo.VerticalDemo;
+import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 import com.sawyerharris.capstone.demo.SimpleDemo;
 import com.sawyerharris.capstone.demo.SpringDemo;
 import com.sawyerharris.capstone.simulator.Simulator;
@@ -29,6 +31,7 @@ public class PendulumApplication extends ApplicationAdapter {
 	private Stage stage;
 	private StretchViewport viewport;
 	private Simulator simulator;
+	private AlgorithmController controller;
 	private Demo demo;
 	private Demo[] demos;
 	
@@ -48,13 +51,19 @@ public class PendulumApplication extends ApplicationAdapter {
 		
 		skin = SkinManager.getSkin();
 		
+		// Create cart sim for demo and algorithm
+		PendulumCartSimulation pcs = new PendulumCartSimulation();
+		
 		// Create list of demos
 		demos = new Demo[NUM_DEMOS];
 		demos[0] = new SimpleDemo();
 		demos[1] = new SpringDemo();
 		demos[2] = new DoubleDemo();
 		demos[3] = new VerticalDemo();
-		demos[4] = new CartDemo();
+		demos[4] = new CartDemo(pcs);
+		
+		// Create algorithm controller
+		controller = new AlgorithmController(pcs);
 		
 		// Create GUI
 		viewport = new StretchViewport(900, 600);
@@ -106,6 +115,7 @@ public class PendulumApplication extends ApplicationAdapter {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				setDemo(demos[4]);
+				controller.setRunning(true);
 			}
 		});
 			
@@ -142,22 +152,26 @@ public class PendulumApplication extends ApplicationAdapter {
 		setDemo(demos[0]);
 		
 		new Thread(simulator).start();
-		
+		new Thread(controller).start();
 		
 		//stage.setDebugAll(true);
 	}
 
 	public void pauseSimulation() {
 		simulator.setRunning(false);
+		controller.setRunning(false);
 	}
 	
 	public void resumeSimulation() {
 		simulator.setRunning(true);
+		controller.setRunning(false);
 	}
 	
 	public void setDemo(Demo demo) {
 		this.demo = demo;
 		
+		controller.setRunning(false);
+		System.out.println("hehe");
 		
 		simulator.setSimulation(demo.getSimulation());
 		simulator.setRunning(true);
@@ -181,5 +195,9 @@ public class PendulumApplication extends ApplicationAdapter {
 
 	public boolean isSimulationRunning() {
 		return simulator.isRunning();
+	}
+	
+	public boolean isAlgorithmRunning() {
+		return controller.isRunning();
 	}
 }
