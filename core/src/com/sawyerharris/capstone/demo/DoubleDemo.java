@@ -154,7 +154,7 @@ public class DoubleDemo extends Demo {
 
 		interfaceTable.add(gravityLabel);
 		interfaceTable.add(gravitySlider);
-		interfaceTable.add(gravityValue).width(25);
+		interfaceTable.add(gravityValue).width(VALUE_WIDTH);
 		interfaceTable.row();
 		
 		// Length 1 parameter
@@ -347,6 +347,15 @@ public class DoubleDemo extends Demo {
 			float y = pendulum2.pivot.y + (float) pendulum2.getLengthY();
 			trace.addVertex(x, y);
 		}
-		phasePlot.addData((float) (sim.getPsi2() % (2 * Math.PI)), (float) sim.getOmega2());
+		float x = (float) sim.getPsi2();
+		if (x < -Math.PI) {
+			x %= 2 * Math.PI;
+			if (x < - Math.PI) x += 2 * Math.PI;
+		} else if (x > Math.PI) {
+			x %= 2 * Math.PI;
+			if (x > Math.PI) x -= 2 * Math.PI;
+		}
+		System.out.println(x);
+		phasePlot.addData(x, (float) sim.getOmega2());
 	}
 }

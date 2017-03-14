@@ -7,7 +7,7 @@ import com.sawyerharris.capstone.view.ShapeActor;
 public class PhasePlot extends ShapeActor {
 	public static final float PLOT_SIZE = 250;
 	private static final int CAPACITY = 4096;
-	private static final float XSCALE = PLOT_SIZE / (4 * (float) Math.PI);
+	private static final float XSCALE = PLOT_SIZE / (2 * (float) Math.PI);
 	private static final float YSCALE = PLOT_SIZE / (8 * (float) Math.PI);
 	
 	private float[] vertices;

@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.sawyerharris.capstone.app.PendulumApplication;
 import com.sawyerharris.capstone.plot.LinePlot;
 import com.sawyerharris.capstone.simulation.SpringPendulumSimulation;
@@ -158,7 +157,7 @@ public class SpringDemo extends Demo {
 
 		interfaceTable.add(gravityLabel);
 		interfaceTable.add(gravitySlider);
-		interfaceTable.add(gravityValue).width(25);
+		interfaceTable.add(gravityValue).width(VALUE_WIDTH);
 		interfaceTable.row();
 		
 		// Length 1 parameter

@@ -121,7 +121,7 @@ public class VerticalDemo extends Demo {
 
 		interfaceTable.add(gravityLabel);
 		interfaceTable.add(gravitySlider);
-		interfaceTable.add(gravityValue).width(25);
+		interfaceTable.add(gravityValue).width(VALUE_WIDTH);
 		interfaceTable.row();
 		
 		// Length parameter
@@ -199,7 +199,7 @@ public class VerticalDemo extends Demo {
 		
 		interfaceTable.add(omegaDriveLabel);
 		interfaceTable.add(omegaDriveSlider);
-		interfaceTable.add(omegaDriveValue).width(25);
+		interfaceTable.add(omegaDriveValue).width(VALUE_WIDTH);
 		interfaceTable.row();
 		
 		// Drive amplitude parameter
@@ -218,7 +218,7 @@ public class VerticalDemo extends Demo {
 		
 		interfaceTable.add(driveAmplitudeLabel);
 		interfaceTable.add(driveAmplitudeSlider);
-		interfaceTable.add(driveAmplitudeValue).width(25);
+		interfaceTable.add(driveAmplitudeValue).width(VALUE_WIDTH);
 		interfaceTable.row();
 		
 		parametricButton = new TextButton("Parametric Drive", skin);
