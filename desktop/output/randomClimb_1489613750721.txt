@@ -1,0 +1,2 @@
+[Params [paramPsi=-176.9, paramOmega=-52.6, paramV=3.14, fitnessScore=266.9362837320019]
+]

@@ -1,17 +1,14 @@
-package com.sawyerharris.capstone.algorithm.controller;
+package com.sawyerharris.capstone.algorithm;
 
-import com.sawyerharris.capstone.algorithm.Algorithm;
 import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 
 public class TestAlgorithm extends Algorithm {
-	int numTicks;
 	double paramPsi;
 	double paramOmega;
 	double paramV;
 	
 	public TestAlgorithm(PendulumCartSimulation sim) {
 		super(sim);
-		numTicks = 0;
 		
 		paramPsi = -150;
 		paramOmega = -50;

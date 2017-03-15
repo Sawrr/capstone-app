@@ -180,10 +180,7 @@ public class CartDemo extends Demo {
 		resetButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				simulation.setParameter("psi1", defPsi1);
-				simulation.setParameter("omega1", defOmega1);
-				simulation.setParameter("cartX", defCartX);
-				simulation.setParameter("cartV", defCartV);
+				reset();
 			}
 		});
 
@@ -220,5 +217,12 @@ public class CartDemo extends Demo {
 		}
 		angularPlot.addData1((float) (simulation.getPsi1() % (2*Math.PI)));
 		angularPlot.addData2((float) simulation.getOmega1());
+	}
+	
+	public void reset() {
+		simulation.setParameter("psi1", defPsi1);
+		simulation.setParameter("omega1", defOmega1);
+		simulation.setParameter("cartX", defCartX);
+		simulation.setParameter("cartV", defCartV);
 	}
 }

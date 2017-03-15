@@ -1,0 +1,6 @@
+[Params [paramPsi=-176.9, paramOmega=-54.70714066202639, paramV=3.14, fitnessScore=166.04669188783632]
+, Params [paramPsi=-176.9, paramOmega=-55.21213923514081, paramV=3.14, fitnessScore=169.33160842466054]
+, Params [paramPsi=-171.62654639973044, paramOmega=-55.21213923514081, paramV=3.14, fitnessScore=189.65602627262984]
+, Params [paramPsi=-166.56435722550302, paramOmega=-55.21213923514081, paramV=3.14, fitnessScore=215.1112957363998]
+, Params [paramPsi=-176.9, paramOmega=-52.6, paramV=3.14, fitnessScore=266.9777271560144]
+]

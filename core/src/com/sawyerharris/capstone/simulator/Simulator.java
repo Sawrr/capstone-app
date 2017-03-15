@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.sawyerharris.capstone.simulation.Simulation;
 
 public class Simulator implements Runnable {
-	private static final double TICKRATE = 10;
+	private static final double TICK_TIME = 10;
 	private static final double DELTA_TIME = 0.01;
 	
 	private AtomicBoolean running;
@@ -40,7 +40,7 @@ public class Simulator implements Runnable {
 			simulation.update(DELTA_TIME);
 			
 			long timeTaken = TimeUtils.millis() - prevTime;
-			long tickTimeRemaining = (long) (TICKRATE) - timeTaken;
+			long tickTimeRemaining = Math.max(((long) (TICK_TIME) - timeTaken), 1);
 			try {
 				Thread.sleep(tickTimeRemaining);
 			} catch (InterruptedException e) {

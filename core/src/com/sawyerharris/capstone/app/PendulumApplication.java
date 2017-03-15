@@ -171,7 +171,6 @@ public class PendulumApplication extends ApplicationAdapter {
 		this.demo = demo;
 		
 		controller.setRunning(false);
-		System.out.println("hehe");
 		
 		simulator.setSimulation(demo.getSimulation());
 		simulator.setRunning(true);

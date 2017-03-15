@@ -4,10 +4,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.badlogic.gdx.utils.TimeUtils;
 import com.sawyerharris.capstone.algorithm.Algorithm;
+import com.sawyerharris.capstone.algorithm.RandomClimbAlgorithm;
 import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 
 public class AlgorithmController implements Runnable {
-	private static final double TICKRATE = 1;
+	private static final double TICK_TIME = 20;
 	
 	private AtomicBoolean running;
 	private Algorithm algorithm;
@@ -16,7 +17,7 @@ public class AlgorithmController implements Runnable {
 		running = new AtomicBoolean();
 		
 		// Create algorithms
-		algorithm = new TestAlgorithm(sim);
+		algorithm = new RandomClimbAlgorithm(sim);
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public class AlgorithmController implements Runnable {
 			algorithm.update();
 			
 			long timeTaken = TimeUtils.millis() - prevTime;
-			long tickTimeRemaining = (long) (TICKRATE) - timeTaken;
+			long tickTimeRemaining = Math.max(((long) (TICK_TIME) - timeTaken), 1);
 			try {
 				Thread.sleep(tickTimeRemaining);
 			} catch (InterruptedException e) {
