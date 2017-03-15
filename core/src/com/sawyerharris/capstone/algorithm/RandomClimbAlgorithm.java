@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 
 public class RandomClimbAlgorithm extends Algorithm {
-	private static final int MAX_TICKS = 500000000;
+	private static final int MAX_TICKS = 500;
 	
 	private static final double defPsi1 = Math.PI - .1;
 	private static final double defCartX = 10;
