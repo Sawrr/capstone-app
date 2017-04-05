@@ -8,7 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 
-public class RandomClimbAlgorithm extends Algorithm {
+public class RandomWalkAlgorithm extends Algorithm {
 	private static final int MAX_TICKS = 500;
 	
 	private static final double defPsi1 = Math.PI - .1;
@@ -27,7 +27,7 @@ public class RandomClimbAlgorithm extends Algorithm {
 
 	private FileHandle output;
 	
-	public RandomClimbAlgorithm(PendulumCartSimulation sim) {
+	public RandomWalkAlgorithm(PendulumCartSimulation sim) {
 		super(sim);
 		
 		list = new ArrayList<Params>();
