@@ -10,7 +10,7 @@ public class EquationOfMotionAlgorithm extends Algorithm {
 	
 	private static final double defPsi1 = PI - .1;
 	private static final double defCartX = 10;
-	private static final double defOmega1 = 0;
+	private static final double defOmega1 = 1;
 	private static final double defCartV = 0;
 	
 	public EquationOfMotionAlgorithm(PendulumCartSimulation sim) {
@@ -32,31 +32,35 @@ public class EquationOfMotionAlgorithm extends Algorithm {
 		double psi = simulation.getPsi1();
 		double omega = simulation.getOmega1();
 		
-		boolean stabilizeAngle = true;
-		if (Math.abs(psi - PI) < 0.001) {
-			stabilizeAngle = false;
-		}
+		// Angular stability
+		double psiddot = dampedsho(omega0);
+		double psiForce = (-psiddot * l * (M + m * sin(psi) * sin(psi)) + (M + m) * g * sin(psi) - m * l * omega * omega * cos(psi) * sin(psi) ) / (cos(psi));
 		
-		if (stabilizeAngle) {
-			// Angular stability
-			double psiddot = dampedsho();
-			double force = (-psiddot * l * (M + m * sin(psi) * sin(psi)) + (M + m) * g * sin(psi) - m * l * omega * omega * cos(psi) * sin(psi) ) / (cos(psi));
-			simulation.setParameter("forceX", force);
-		} else {
-			// Zero cart velocity
-			double xddot = dampedCart();
-			double force = xddot * (M + m * sin(psi) * sin(psi)) - m * g * cos(psi) * sin(psi) - m * l * omega * omega * sin(psi);
-			simulation.setParameter("forceX", force);	
+		// Zero cart velocity
+		double xddot = dampedCart(omega0);
+		double cartForce = xddot * (M + m * sin(psi) * sin(psi)) - m * g * cos(psi) * sin(psi) - m * l * omega * omega * sin(psi);
+				
+		double force = psiForce;
+		
+		if (psiForce * cartForce > 0) {
+			System.out.println("psif = " + psiForce);
+			System.out.println("cartF = " + cartForce);
+			System.out.println("    diff = " + (psiForce - cartForce));
+			
+			//force = (cartForce);
 		}
+		System.out.println("force = " + force + "\n");
+		
+		simulation.setParameter("forceX", force);
 	}
 	
-	private double dampedCart() {
+	private double dampedCart(double omega0) {
 		double cartV = simulation.getCartV();
 		return -(2 * omega0 * cartV);
 	}
 	
-	private double dampedsho() {
-		double psi = PI - ((2*PI - simulation.getPsi1()) % (2*PI));
+	private double dampedsho(double omega0) {
+		double psi = PI - (2*PI - (simulation.getPsi1() % (2*PI)));
 		double omega = simulation.getOmega1();
 		return -(omega0 * omega0 * psi + 2 * omega0 * omega);
 	}
