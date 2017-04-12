@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.sawyerharris.capstone.algorithm.Algorithm;
 import com.sawyerharris.capstone.algorithm.controller.AlgorithmController;
 import com.sawyerharris.capstone.demo.CartDemo;
 import com.sawyerharris.capstone.demo.Demo;
@@ -181,6 +182,16 @@ public class PendulumApplication extends ApplicationAdapter {
 		hGroup.addActor(hvGroup);
 		hvGroup.addActor(demo.getInterfaceWindow());
 		hvGroup.addActor(demo.getPlotWindow());
+	}
+	
+	public void setAlgorithm(Algorithm alg) {
+		controller.setAlgorithm(alg);
+		if (alg == null) {
+			controller.setRunning(false);	
+		} else {
+			controller.setRunning(true);
+		}
+		
 	}
 	
 	@Override

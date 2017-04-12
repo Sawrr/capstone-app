@@ -4,8 +4,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.badlogic.gdx.utils.TimeUtils;
 import com.sawyerharris.capstone.algorithm.Algorithm;
-import com.sawyerharris.capstone.algorithm.EquationOfMotionAlgorithm;
-import com.sawyerharris.capstone.algorithm.RandomWalkAlgorithm;
 import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
 
 public class AlgorithmController implements Runnable {
@@ -16,9 +14,7 @@ public class AlgorithmController implements Runnable {
 	
 	public AlgorithmController(PendulumCartSimulation sim) {
 		running = new AtomicBoolean();
-		
-		// Create algorithms
-		algorithm = new EquationOfMotionAlgorithm(sim);
+		setRunning(false);
 	}
 	
 	@Override
@@ -59,6 +55,9 @@ public class AlgorithmController implements Runnable {
 	}
 	
 	public synchronized void setRunning(boolean run) {
+		if (algorithm == null) {
+			return;
+		}
 		if (run) {
 			running.set(true);
 			notifyAll();

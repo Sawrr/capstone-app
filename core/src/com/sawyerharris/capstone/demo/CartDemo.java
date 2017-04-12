@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.sawyerharris.capstone.algorithm.EquationOfMotionAlgorithm;
+import com.sawyerharris.capstone.algorithm.ModelAlgorithm;
 import com.sawyerharris.capstone.app.PendulumApplication;
 import com.sawyerharris.capstone.plot.LinePlot;
 import com.sawyerharris.capstone.simulation.PendulumCartSimulation;
@@ -50,8 +52,17 @@ public class CartDemo extends Demo {
 	private Slider cartMassSlider;
 	private Label cartMassLabel;
 	private Label cartMassValue;
+	private TextButton modelButton;
+	
+	private ModelAlgorithm modelAlg;
+	private EquationOfMotionAlgorithm eomAlg;
+	private TextButton noAlgButton;
+	private TextButton balanceButton;
 	
 	public CartDemo(PendulumCartSimulation sim) {
+		modelAlg = new ModelAlgorithm(sim);
+		eomAlg = new EquationOfMotionAlgorithm(sim);
+		
 		////////////////
 		// SIMULATION //
 		////////////////
@@ -74,7 +85,6 @@ public class CartDemo extends Demo {
 		cart.addListener(new ActorGestureListener() {
 			@Override
 			public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
-				System.out.println(x);
 				float force = Math.max(Math.abs(x), 20);
 				if (x < 0) force *= -1;
 				simulation.setParameter("forceX", force);
@@ -184,7 +194,35 @@ public class CartDemo extends Demo {
 			}
 		});
 
+		noAlgButton = new TextButton("No Algorithm", skin);
+		noAlgButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				PendulumApplication.getInstance().setAlgorithm(null);
+			}
+		});
+		
+		modelButton = new TextButton("Naive", skin);
+		modelButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				PendulumApplication.getInstance().setAlgorithm(modelAlg);
+			}
+		});
+		
+		balanceButton = new TextButton("Smart", skin);
+		balanceButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				PendulumApplication.getInstance().setAlgorithm(eomAlg);
+			}
+		});
+		
 		interfaceTable.add(resetButton);
+		interfaceTable.row();
+		interfaceTable.add(noAlgButton);
+		interfaceTable.add(modelButton);
+		interfaceTable.add(balanceButton);
 		
 		interfaceWindow.setBounds(0, 0, Demo.INTERFACE_WIDTH, Demo.INTERFACE_WIDTH);
 		interfaceWindow.addActor(interfaceTable);

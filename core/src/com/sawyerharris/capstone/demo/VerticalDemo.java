@@ -27,7 +27,7 @@ public class VerticalDemo extends Demo {
 	private float defDriveAmplitude = 0.15f;
 	private float defDamping = 0;
 	private float defOmegaDriveKapitza = 200;
-	private float defPsi1Kapitza = (float) Math.PI + 0.3f;
+	private float defPsi1Kapitza = (float) Math.PI + 0.2f;
 	private float defDriveAmplitudeKapitza = 0.05f;
 	
 	private Pendulum pendulum;
